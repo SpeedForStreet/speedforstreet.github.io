@@ -66,6 +66,7 @@ function renderSiteCars(list){
 }
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
+  list=list.filter(n=>n.published!==false);
   grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><a href="${n.link||'#devlog'}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
 }
 loadSiteData();
