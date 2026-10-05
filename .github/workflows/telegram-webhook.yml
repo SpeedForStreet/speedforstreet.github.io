@@ -1,0 +1,18 @@
+name: Set Telegram webhook
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/telegram-webhook.yml"
+
+jobs:
+  set-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Telegram webhook
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          WEBHOOK_URL: https://speedforstreet-telegram.yauheni-korshuk.workers.dev/
+        run: |
+          curl -fsS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook"             -H "Content-Type: application/json"             --data "{"url":"${WEBHOOK_URL}"}"
