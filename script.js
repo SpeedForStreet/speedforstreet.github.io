@@ -69,3 +69,46 @@ function renderSiteNews(list){
   grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><a href="${n.link||'#devlog'}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
 }
 loadSiteData();
+
+
+// Site loading screen
+(function(){
+  const loader=document.getElementById('siteLoader');
+  if(!loader)return;
+  const staticAssets=[
+    'assets/hero-clean.jpg','assets/world-clean.jpg','assets/car-clean.jpg',
+    'assets/city-clean.jpg','assets/city-01.jpg','assets/street-01.jpg'
+  ];
+  const preloadImage=src=>new Promise(resolve=>{
+    const img=new Image();
+    img.onload=img.onerror=()=>resolve();
+    img.src=src;
+  });
+  const hideLoader=()=>{
+    if(loader.classList.contains('done'))return;
+    loader.classList.add('done');
+    setTimeout(()=>loader.remove(),700);
+  };
+  const start=async()=>{
+    const imageUrls=[...staticAssets];
+    try{
+      const [carsRes,newsRes]=await Promise.all([
+        fetch('data/cars.json'),fetch('data/news.json')
+      ]);
+      if(carsRes.ok){
+        const data=await carsRes.json();
+        data.forEach(x=>x.image&&imageUrls.push(x.image));
+      }
+      if(newsRes.ok){
+        const data=await newsRes.json();
+        data.forEach(x=>x.image&&imageUrls.push(x.image));
+      }
+    }catch(e){}
+    await Promise.all([...new Set(imageUrls)].map(preloadImage));
+    if(document.fonts&&document.fonts.ready)try{await document.fonts.ready}catch(e){}
+    hideLoader();
+  };
+  if(document.readyState==='complete')start();
+  else window.addEventListener('load',start,{once:true});
+  setTimeout(hideLoader,15000);
+})();
