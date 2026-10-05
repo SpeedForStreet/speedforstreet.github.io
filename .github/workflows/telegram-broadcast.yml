@@ -1,0 +1,44 @@
+name: Publish Telegram news
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/news.json"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read news and publish to Telegram Worker
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          NEWS_URL: https://raw.githubusercontent.com/SpeedForStreet/speedforstreet.github.io/main/data/news.json
+          WORKER_URL: https://speedforstreet-telegram.yauheni-korshuk.workers.dev/broadcast
+        run: |
+          python - <<'PY2'
+          import json, os, urllib.request, urllib.error
+
+          with urllib.request.urlopen(os.environ["NEWS_URL"]) as r:
+              news = json.load(r)
+
+          for item in news:
+              if item.get("telegram") is True:
+                  payload = json.dumps(item, ensure_ascii=False).encode("utf-8")
+                  req = urllib.request.Request(
+                      os.environ["WORKER_URL"],
+                      data=payload,
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "X-Telegram-Bot-Token": os.environ["TELEGRAM_BOT_TOKEN"]
+                      }
+                  )
+                  try:
+                      with urllib.request.urlopen(req) as r:
+                          print("Worker:", r.status, r.read().decode())
+                  except urllib.error.HTTPError as e:
+                      print("Worker error:", e.code, e.read().decode())
+                      raise
+          PY2
