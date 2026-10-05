@@ -20,7 +20,8 @@
     <a href="#game">Об игре</a>
     <a href="#cars">Автомобили</a>
     <a href="#world">Мир</a>
-    <a href="#devlog">DevLog</a>
+    <a href="#news">Новости</a>
+    <a href="about.html">О проекте</a>
   </nav>
   <div class="socials" aria-label="Социальные сети">
     <a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1" class="fill"/></svg></a>
@@ -32,7 +33,7 @@
 </header>
 
 <div class="mobile-menu" aria-hidden="true">
-  <a href="#top">Главная</a><a href="#game">Об игре</a><a href="#cars">Автомобили</a><a href="#world">Мир</a><a href="#devlog">DevLog</a>
+  <a href="#top">Главная</a><a href="#game">Об игре</a><a href="#cars">Автомобили</a><a href="#world">Мир</a><a href="#news">Новости</a><a href="about.html">О проекте</a>
 </div>
 
 <main id="top">
@@ -48,13 +49,14 @@
       <a class="btn-primary" href="#game">УЗНАТЬ ОБ ИГРЕ <span>→</span></a>
       <div class="status"><b>EARLY ACCESS</b><span>В РАЗРАБОТКЕ</span></div>
     </div>
-    <div class="hero-features">
-      <div><i>▱</i><b>OPEN WORLD</b></div>
-      <div><i>⚑</i><b>RACING</b></div>
-      <div><i>⌂</i><b>LIFE SIM</b></div>
-      <div><i>⌁</i><b>ТЮНИНГ</b></div>
-      <div><i>▥</i><b>РАЗВИТИЕ</b></div>
-    </div>
+    <div class="hero-feature-spacer" aria-hidden="true"></div>
+  </div>
+  <div class="hero-features" aria-label="Особенности игры">
+    <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.8 9.5h16.4M3.8 14.5h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5s-1.2 6.2-3.4 8.5c-2.2-2.3-3.4-5.1-3.4-8.5S9.8 5.8 12 3.5Z"/></svg></i><b>OPEN WORLD</b></div>
+    <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V4l12 4-12 4"/><path d="M17 8v8"/><path d="M17 16h3"/></svg></i><b>RACING</b></div>
+    <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3.5 10.8 8.5-7 8.5 7"/><path d="M5.5 9.8V20h13V9.8M9.5 20v-5h5v5"/></svg></i><b>LIFE SIM</b></div>
+    <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m14.8 6.2 3 3-7.9 7.9-3.8.8.8-3.8 7.9-7.9Z"/><path d="m13.2 7.8 3 3M5 20h6"/></svg></i><b>ТЮНИНГ</b></div>
+    <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V13M10 20V9M16 20V5M22 20V2"/></svg></i><b>РАЗВИТИЕ</b></div>
   </div>
   <div class="hero-corner">v0.1 • CONCEPT / DEVELOPMENT</div>
 </section>
@@ -77,11 +79,23 @@
 
 <section class="section cars" id="cars">
   <div class="section-label">02 / AUTOMOTIVE</div>
-  <div class="two-col title-row"><h2>МАШИНЫ — ЭТО<br><em>ХАРАКТЕР.</em></h2><div class="copy"><p>Автомобили должны не просто красиво выглядеть. Они должны ощущаться по-разному: масса, мотор, коробка, сцепление, тормоза, подвеска и шины реально влияют на поведение машины.</p></div></div>
-  <div class="car-grid">
-    <button class="car-card featured" data-car="street"><div class="car-image img1"></div><div class="card-copy"><small>STREET CLASS</small><h3>ГОРОДСКОЙ СПОРТ</h3><p>Первый серьёзный шаг в автомобильную жизнь.</p><b>СМОТРЕТЬ →</b></div></button>
-    <button class="car-card" data-car="performance"><div class="car-image img2"></div><div class="card-copy"><small>PERFORMANCE</small><h3>СКОРОСТЬ</h3><p>Мощность, сцепление и настройка.</p><b>СМОТРЕТЬ →</b></div></button>
-    <button class="car-card" data-car="garage"><div class="car-image img3"></div><div class="card-copy"><small>GARAGE</small><h3>ТЮНИНГ</h3><p>Внешние и технические изменения.</p><b>СМОТРЕТЬ →</b></div></button>
+  <div class="two-col title-row">
+    <h2>МАШИНЫ — ЭТО<br><em>ХАРАКТЕР.</em></h2>
+    <div class="copy"><p>Автомобили — одна из главных систем SpeedForStreet. В игре важны не только внешний вид и цифры, но и то, как машина реально ведёт себя на дороге.</p><p>Двигатель, коробка, привод, масса, сцепление, тормоза, подвеска, шины и аэродинамика работают вместе.</p></div>
+  </div>
+  <div class="gallery-toolbar" role="tablist" aria-label="Фильтр автомобилей">
+    <button class="filter-btn active" data-filter="all">ВСЕ</button>
+    <button class="filter-btn" data-filter="street">STREET</button>
+    <button class="filter-btn" data-filter="performance">PERFORMANCE</button>
+    <button class="filter-btn" data-filter="garage">GARAGE</button>
+  </div>
+  <div class="car-grid gallery-grid">
+    <button class="car-card featured" data-car="street" data-category="street"><div class="car-image img1"></div><div class="card-copy"><small>STREET CLASS</small><h3>ГОРОДСКОЙ СПОРТ</h3><p>Первый серьёзный шаг в автомобильную жизнь.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
+    <button class="car-card" data-car="performance" data-category="performance"><div class="car-image img2"></div><div class="card-copy"><small>PERFORMANCE</small><h3>СКОРОСТЬ</h3><p>Мощность, сцепление и настройка.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
+    <button class="car-card" data-car="garage" data-category="garage"><div class="car-image img3"></div><div class="card-copy"><small>GARAGE</small><h3>ТЮНИНГ</h3><p>Внешние и технические изменения.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
+    <button class="car-card" data-car="street2" data-category="street"><div class="car-image img4"></div><div class="card-copy"><small>STREET CLASS</small><h3>НОЧНОЙ STREET</h3><p>Городская машина для вечерних улиц и первых гонок.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
+    <button class="car-card" data-car="performance2" data-category="performance"><div class="car-image img5"></div><div class="card-copy"><small>TRACK / STREET</small><h3>TRACK BUILD</h3><p>Настройка под скорость, торможение и стабильность.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
+    <button class="car-card" data-car="garage2" data-category="garage"><div class="car-image img6"></div><div class="card-copy"><small>GARAGE PROJECT</small><h3>PROJECT CAR</h3><p>Машина, которую собирают постепенно — от базы до мечты.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
   </div>
   <div class="spec-strip"><span>ENGINE</span><b>DRIVETRAIN</b><span>SUSPENSION</span><b>BRAKES</b><span>TYRES</span><b>AERODYNAMICS</b><span>ECU</span></div>
 </section>
@@ -98,6 +112,19 @@
   </div>
 </section>
 
+<section class="section world-zones" id="world-zones">
+  <div class="section-label">03.1 / DISTRICTS</div>
+  <div class="two-col title-row"><h2>ГОРОД — ЭТО<br><em>НЕ ДЕКОРАЦИЯ.</em></h2><div class="copy"><p>Каждый район существует для своей жизни: работа, отдых, покупки, обслуживание автомобилей, легальные гонки и просто движение по городу.</p></div></div>
+  <div class="district-grid">
+    <article class="district d1"><span>01</span><h3>ЖИЛОЙ РАЙОН</h3><p>Дома, дворы, магазины и ежедневные маршруты.</p></article>
+    <article class="district d2"><span>02</span><h3>ЦЕНТР</h3><p>Магазины, офисы, услуги и самый плотный трафик.</p></article>
+    <article class="district d3"><span>03</span><h3>ПРОМЗОНА</h3><p>Сервисы, склады, мастерские и рабочие места.</p></article>
+    <article class="district d4"><span>04</span><h3>ГОНКИ</h3><p>Легальные трассы, встречи и автомобильная культура.</p></article>
+    <article class="district d5"><span>05</span><h3>ПАРК</h3><p>Тихая часть города для прогулок и отдыха.</p></article>
+    <article class="district d6"><span>06</span><h3>ПАРКИНГИ</h3><p>Многоуровневые парковки и места для автомобильной жизни.</p></article>
+  </div>
+</section>
+
 <section class="section routes">
   <div class="section-label">04 / YOUR LIFE</div><h2>КЕМ ТЫ <em>СТАНЕШЬ?</em></h2>
   <div class="route-grid">
@@ -108,21 +135,36 @@
   </div>
 </section>
 
+<section class="section news" id="news">
+  <div class="section-label">05 / NEWS</div>
+  <div class="two-col title-row"><h2>НОВОСТИ<br><em>РАЗРАБОТКИ.</em></h2><div class="copy"><p>Здесь будут появляться реальные обновления проекта: новые системы, автомобили, районы, прототипы и важные этапы разработки.</p></div></div>
+  <div class="news-grid">
+    <article class="news-card featured-news"><div class="news-image n1"></div><div class="news-body"><span>05.10.2026 • DEVLOG</span><h3>ПЕРЕХОДИМ ОТ КОНЦЕПТА К ПРОТОТИПУ</h3><p>Следующий большой этап — собрать базовый игровой цикл: персонаж, автомобиль, город и взаимодействие между ними.</p><a href="#devlog">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>
+    <article class="news-card"><div class="news-image n2"></div><div class="news-body"><span>DEVLOG • SYSTEMS</span><h3>ЖИВОЙ ГОРОД</h3><p>Планируем расписания NPC, работу магазинов, транспорт и календарную симуляцию.</p><a href="#world">СМОТРЕТЬ СИСТЕМУ →</a></div></article>
+    <article class="news-card"><div class="news-image n3"></div><div class="news-body"><span>DEVLOG • CARS</span><h3>АВТОМОБИЛЬНАЯ СИСТЕМА</h3><p>Фокус — физика, обслуживание, повреждения, тюнинг и настоящее влияние деталей на поведение машины.</p><a href="#cars">СМОТРЕТЬ АВТОМОБИЛИ →</a></div></article>
+  </div>
+</section>
+
 <section class="section devlog" id="devlog">
-  <div class="section-label">05 / DEVELOPMENT</div>
+  <div class="section-label">06 / DEVELOPMENT</div>
   <div class="two-col title-row"><h2>СТРОИМ<br><em>С НУЛЯ.</em></h2><div class="copy"><p>Проект создаётся одним разработчиком. Здесь начинается публичная история SpeedForStreet.</p></div></div>
   <div class="timeline"><div><b>01</b><strong>КОНЦЕПТ</strong><span>Мир, стиль, автомобили</span></div><div><b>02</b><strong>ПРОТОТИП</strong><span>Персонаж + автомобиль</span></div><div><b>03</b><strong>ГОРОД</strong><span>Первая игровая зона</span></div><div><b>04</b><strong>EARLY ACCESS</strong><span>Первый публичный билд</span></div></div>
 </section>
 
 <section class="section contact" id="contacts">
   <div><div class="section-label">JOIN THE RIDE</div><h2>БУДЬ С НАМИ<br>С САМОГО НАЧАЛА.</h2><p>Следи за разработкой, концептами, автомобилями и новыми механиками.</p></div>
-  <div class="big-socials"><a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener"><b>IG</b> Instagram</a><a href="https://vk.com/speedforstreet" target="_blank" rel="noopener"><b>VK</b> VK</a><a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener"><b>TT</b> TikTok</a><a href="https://t.me/speedforstreet" target="_blank" rel="noopener"><b>TG</b> Telegram</a></div>
+  <div class="big-socials">
+    <a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener" aria-label="Instagram"><b aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.1" class="fill"/></svg></b><span>Instagram</span></a>
+    <a href="https://vk.com/speedforstreet" target="_blank" rel="noopener" aria-label="VK"><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.2c.2 6.3 3.3 9.7 8.7 9.8h.3v-3.6c2.2.2 3.9 1.7 4.6 3.6H21c-.7-2.7-2.4-4.4-4-5.1 1.6-.9 3-2.7 3.4-4.7h-3.1c-.6 2.2-2.4 4.1-4.3 4.3V7.2H10v7.6c-2-.5-3.5-2.5-3.6-7.6H4Z"/></svg></b><span>VK</span></a>
+    <a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener" aria-label="TikTok"><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 4v10.2a4.7 4.7 0 1 1-4-4.65v3.05a1.75 1.75 0 1 0 1.9 1.74V4H14c.3 1.8 1.4 3 3.2 3.55v2.75A7 7 0 0 1 14 9.2V4Z"/></svg></b><span>TikTok</span></a>
+    <a href="https://t.me/speedforstreet" target="_blank" rel="noopener" aria-label="Telegram"><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.5 4.2 18.3 19c-.25 1.05-.85 1.3-1.72.8l-4.72-3.48-2.28 2.2c-.25.25-.46.46-.94.46l.34-4.8 8.73-7.88c.38-.34-.08-.53-.59-.19L6.32 12.95 1.67 11.5c-1.01-.32-1.03-1.01.21-1.5L20.05 3.2c.85-.31 1.59.2 1.45 1Z"/></svg></b><span>Telegram</span></a>
+  </div>
 </section>
 </main>
 
 <div class="modal" id="carModal" aria-hidden="true"><div class="modal-box"><button class="modal-close" aria-label="Закрыть">×</button><div class="modal-img" id="modalImg"></div><div class="modal-text"><div class="section-label" id="modalKicker"></div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="modal-specs"><span>ДВИГАТЕЛЬ <b id="modalEngine"></b></span><span>ПРИВОД <b id="modalDrive"></b></span><span>ТЮНИНГ <b id="modalTune"></b></span></div></div></div></div>
 
-<footer><span>© 2026 SPEED FOR STREET</span><span>ЖИЗНЬ. МАШИНЫ. ГОРОД. ТВОЯ ИСТОРИЯ.</span></footer>
+<footer><span>© 2026 SPEED FOR STREET</span><span><a href="about.html">О ПРОЕКТЕ</a> &nbsp; • &nbsp; ЖИЗНЬ. МАШИНЫ. ГОРОД. ТВОЯ ИСТОРИЯ.</span></footer>
 <script src="script.js"></script>
 </body>
 </html>

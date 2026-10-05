@@ -1,10 +1,5 @@
-# SpeedForStreet — Official Site
+# SpeedForStreet Official Site
 
-Статический сайт для GitHub Pages.
+Загрузите содержимое этой папки в корень репозитория GitHub Pages.
 
-## Публикация
-1. Распакуйте архив.
-2. Загрузите содержимое папки в репозиторий GitHub.
-3. GitHub → Settings → Pages → Deploy from branch → `main` / `/root`.
-
-Важно: папка `assets` обязательна — в ней лежат изображения.
+Файлы: index.html, about.html, style.css, script.js, assets/.
