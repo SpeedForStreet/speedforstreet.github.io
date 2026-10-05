@@ -1,12 +1,14 @@
 [
   {
-    "id": "123",
-    "date": "123",
-    "tag": "123",
-    "title": "123",
-    "text": "",
+    "id": "132131",
+    "date": "213123",
+    "tag": "123123",
+    "title": "213123",
+    "text": "213123",
     "image": "",
-    "link": "#devlog"
+    "link": "#devlog",
+    "published": false,
+    "telegram": true
   },
   {
     "id": "devlog-001",
