@@ -42,16 +42,5 @@
     "drive": "RWD",
     "tune": "STREET SETUP",
     "image": "assets/street-01.jpg"
-  },
-  {
-    "id": "performance2",
-    "category": "performance",
-    "kicker": "TRACK / STREET",
-    "title": "TRACK BUILD",
-    "desc": "Сборка, рассчитанная на скорость, торможение и стабильность на высокой скорости.",
-    "engine": "3.5 V6 TURBO",
-    "drive": "AWD",
-    "tune": "TRACK SETUP",
-    "image": "assets/hero-clean.jpg"
   }
 ]
