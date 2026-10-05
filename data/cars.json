@@ -1,0 +1,68 @@
+[
+  {
+    "id": "street",
+    "category": "street",
+    "kicker": "STREET CLASS",
+    "title": "ГОРОДСКОЙ СПОРТ",
+    "desc": "Автомобиль для первых серьёзных шагов. Настройка двигателя, подвески, шин и тормозов меняет его поведение на дороге.",
+    "engine": "2.0 TURBO",
+    "drive": "RWD",
+    "tune": "ЭКСТЕРЬЕР + ТЕХНИКА",
+    "image": "assets/car-clean.jpg"
+  },
+  {
+    "id": "performance",
+    "category": "performance",
+    "kicker": "PERFORMANCE",
+    "title": "СКОРОСТЬ",
+    "desc": "Более мощная конфигурация для тех, кто хочет чувствовать разницу между обычной городской машиной и спортивным автомобилем.",
+    "engine": "3.0 TWIN-TURBO",
+    "drive": "AWD",
+    "tune": "ПОЛНЫЙ ТЮНИНГ",
+    "image": "assets/hero-clean.jpg"
+  },
+  {
+    "id": "garage",
+    "category": "garage",
+    "kicker": "GARAGE",
+    "title": "ТЮНИНГ",
+    "desc": "Гараж — место, где машина становится твоей. Внешние детали и технические компоненты работают как единая система.",
+    "engine": "НАСТРОЙКА",
+    "drive": "RWD / AWD",
+    "tune": "БЕЗ ОГРАНИЧЕНИЙ",
+    "image": "assets/city-clean.jpg"
+  },
+  {
+    "id": "street2",
+    "category": "street",
+    "kicker": "STREET CLASS",
+    "title": "НОЧНОЙ STREET",
+    "desc": "Городская конфигурация для вечерних улиц. Баланс тяги, тормозов и управляемости.",
+    "engine": "2.4 TURBO",
+    "drive": "RWD",
+    "tune": "STREET SETUP",
+    "image": "assets/street-01.jpg"
+  },
+  {
+    "id": "performance2",
+    "category": "performance",
+    "kicker": "TRACK / STREET",
+    "title": "TRACK BUILD",
+    "desc": "Сборка, рассчитанная на скорость, торможение и стабильность на высокой скорости.",
+    "engine": "3.5 V6 TURBO",
+    "drive": "AWD",
+    "tune": "TRACK SETUP",
+    "image": "assets/hero-clean.jpg"
+  },
+  {
+    "id": "garage2",
+    "category": "garage",
+    "kicker": "GARAGE PROJECT",
+    "title": "PROJECT CAR",
+    "desc": "Базовый автомобиль для долгого проекта: меняй детали постепенно и собирай собственный характер машины.",
+    "engine": "PROJECT",
+    "drive": "RWD / AWD",
+    "tune": "FULL PROJECT",
+    "image": "assets/city-clean.jpg"
+  }
+]
