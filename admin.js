@@ -1,7 +1,7 @@
 const REPO="SpeedForStreet/speedforstreet.github.io", BRANCH="main";
 let token="", cars=[], news=[], carSha="", newsSha="";
 const $=s=>document.querySelector(s);
-async function api(path,options={}){const r=await fetch("https://api.github.com/repos/"+REPO+"/contents/"+path,{...options,headers:{"Accept":"application/vnd.github+json","Authorization:"Bearer "+token,"Content-Type":"application/json",...(options.headers||{})}});if(!r.ok)throw new Error((await r.json()).message||r.status);return r.json();}
+async function api(path,options={}){const r=await fetch("https://api.github.com/repos/"+REPO+"/contents/"+path,{...options,headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"Content-Type":"application/json",...(options.headers||{})}});if(!r.ok)throw new Error((await r.json()).message||r.status);return r.json();}
 async function load(){const [c,n]=await Promise.all([api("data/cars.json?ref="+BRANCH),api("data/news.json?ref="+BRANCH)]);carSha=c.sha;newsSha=n.sha;cars=JSON.parse(decodeURIComponent(escape(atob(c.content.replace(/\n/g,"")))));news=JSON.parse(decodeURIComponent(escape(atob(n.content.replace(/\n/g,"")))));renderLists();$("#saveStatus").textContent="Данные загружены.";}
 function enc(s){return btoa(unescape(encodeURIComponent(s)));}
 async function saveFile(path,data,sha,message){await api(path,{method:"PUT",body:JSON.stringify({message,content:enc(JSON.stringify(data,null,2)+"\n"),sha,branch:BRANCH})});}
