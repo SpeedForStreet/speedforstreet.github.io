@@ -148,3 +148,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 @keyframes loaderProgress{0%{transform:translateX(-120%)}100%{transform:translateX(310%)}}
 @keyframes loaderDots{0%{opacity:.25}50%{opacity:1}100%{opacity:.25}}
 @media(max-width:700px){.loader-content{width:82vw}.loader-logo{font-size:60px}}
+
+/* Loading percentage */
+.loader-percent{font:700 clamp(28px,4vw,46px)/1 Oswald;color:#fff;letter-spacing:2px;margin-top:20px}
+.loader-status{transition:opacity .2s ease}
