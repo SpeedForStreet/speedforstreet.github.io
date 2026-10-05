@@ -18,14 +18,14 @@ jobs:
           WORKER_URL: https://speedforstreet-telegram.yauheni-korshuk.workers.dev/broadcast
         run: |
           python - <<'PY2'
-          import json, os, urllib.request, urllib.error
+          import json, os, re, urllib.request, urllib.error\n\n          def plain_html(value):\n              value = value or ""\n              value = re.sub(r"<br\\s*/?>", "\\n", value, flags=re.I)\n              value = re.sub(r"</(p|div|h[1-6]|li|blockquote)>", "\\n", value, flags=re.I)\n              value = re.sub(r"<[^>]+>", "", value)\n              return value.strip()
 
           with urllib.request.urlopen(os.environ["NEWS_URL"]) as r:
               news = json.load(r)
 
           for item in news:
               if item.get("telegram") is True:
-                  payload = json.dumps(item, ensure_ascii=False).encode("utf-8")
+                  telegram_item = dict(item)\n                  telegram_item["text"] = plain_html(item.get("text") or item.get("fullDescription") or item.get("shortDescription") or "")\n                  payload = json.dumps(telegram_item, ensure_ascii=False).encode("utf-8")
                   req = urllib.request.Request(
                       os.environ["WORKER_URL"],
                       data=payload,
