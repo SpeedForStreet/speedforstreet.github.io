@@ -9,14 +9,5 @@
     "link": "https://speedforstreet.github.io/#devlog",
     "published": true,
     "telegram": true
-  },
-  {
-    "id": "devlog-001",
-    "date": "05.10.2026",
-    "tag": "DEVLOG",
-    "title": "ПЕРЕХОДИМ ОТ КОНЦЕПТА К ПРОТОТИПУ",
-    "text": "Следующий большой этап — собрать базовый игровой цикл: персонаж, автомобиль, город и взаимодействие между ними.",
-    "image": "assets/world-clean.jpg",
-    "link": "#devlog"
   }
 ]
