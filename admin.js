@@ -22,6 +22,48 @@ async function persistNews(){const r=await api("data/news.json?ref="+BRANCH);awa
 window.editCar=i=>carForm(cars[i],i);window.deleteCar=async i=>{if(confirm("Удалить автомобиль?")){cars.splice(i,1);await persistCars();renderCars();}};
 window.editNews=i=>newsForm(news[i],i);window.deleteNews=async i=>{if(confirm("Удалить новость?")){news.splice(i,1);await persistNews();renderNews();}};
 window.closeEditor=id=>$("#"+id).classList.add("hidden");
-$("#connect").onclick=async()=>{token=$("#token").value.trim();try{await load();$("#auth").classList.add("hidden");$("#workspace").classList.remove("hidden");$("#authStatus").textContent="Подключено."}catch(e){$("#authStatus").textContent="Ошибка: "+e.message;token="";}};
-$("#reload").onclick=load;$("#newCar").onclick=()=>carForm();$("#newNews").onclick=()=>newsForm();
-document.querySelectorAll(".top-actions button[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#carsTab").classList.toggle("hidden",b.dataset.tab!=="cars");$("#newsTab").classList.toggle("hidden",b.dataset.tab!=="news");});
+
+function initAdmin(){
+  const connect=$("#connect");
+  if(!connect){
+    document.body.innerHTML+="<div style="+"\"position:fixed;bottom:20px;left:20px;right:20px;padding:15px;background:#321015;color:#fff;z-index:9999\""+">Ошибка запуска админ-панели: кнопка подключения не найдена.</div>";
+    return;
+  }
+  connect.addEventListener("click",async()=>{
+    const status=$("#authStatus");
+    connect.disabled=true;
+    connect.textContent="ПРОВЕРКА…";
+    status.textContent="Проверяем токен и подключение к GitHub…";
+    token=$("#token").value.trim();
+    if(!token){
+      status.textContent="Ошибка: введи GitHub token.";
+      connect.disabled=false;
+      connect.textContent="ПОДКЛЮЧИТЬСЯ";
+      return;
+    }
+    try{
+      await load();
+      $("#auth").classList.add("hidden");
+      $("#workspace").classList.remove("hidden");
+      status.textContent="Подключено.";
+    }catch(e){
+      console.error("SpeedForStreet Admin:",e);
+      status.textContent="Ошибка подключения: "+(e.message||"неизвестная ошибка");
+      token="";
+    }finally{
+      connect.disabled=false;
+      connect.textContent="ПОДКЛЮЧИТЬСЯ";
+    }
+  });
+  $("#reload").onclick=load;
+  $("#newCar").onclick=()=>carForm();
+  $("#newNews").onclick=()=>newsForm();
+  document.querySelectorAll(".top-actions button[data-tab]").forEach(b=>b.onclick=()=>{
+    document.querySelectorAll("[data-tab]").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    $("#carsTab").classList.toggle("hidden",b.dataset.tab!=="cars");
+    $("#newsTab").classList.toggle("hidden",b.dataset.tab!=="news");
+  });
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",initAdmin);
+else initAdmin();
