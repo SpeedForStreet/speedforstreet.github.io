@@ -39,3 +39,33 @@ $$('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{
     card.hidden=!show;
   });
 }));
+
+
+// CMS data: cars and development news are managed from admin.html
+async function loadSiteData(){
+  try{
+    const [carsRes,newsRes]=await Promise.all([fetch('data/cars.json'),fetch('data/news.json')]);
+    if(!carsRes.ok||!newsRes.ok) throw new Error('CMS data unavailable');
+    const siteCars=await carsRes.json(), siteNews=await newsRes.json();
+    renderSiteCars(siteCars); renderSiteNews(siteNews);
+  }catch(e){ console.warn('SpeedForStreet CMS:',e); }
+}
+function renderSiteCars(list){
+  const grid=$('.gallery-grid'); if(!grid)return;
+  grid.innerHTML=list.map((c,i)=>`<button class="car-card ${i===0?'featured':''}" data-car-cms="${c.id}" data-category="${c.category}">
+    <div class="car-image" style="background-image:url("${c.image}")"></div>
+    <div class="card-copy"><small>${c.kicker}</small><h3>${c.title}</h3><p>${c.desc}</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div>
+  </button>`).join('');
+  grid.querySelectorAll('.car-card').forEach(card=>card.addEventListener('click',()=>{
+    const d=list.find(x=>x.id===card.dataset.carCms); if(!d||!modal)return;
+    $('#modalKicker').textContent=d.kicker; $('#modalTitle').textContent=d.title; $('#modalDesc').textContent=d.desc;
+    $('#modalEngine').textContent=d.engine; $('#modalDrive').textContent=d.drive; $('#modalTune').textContent=d.tune;
+    $('#modalImg').style.backgroundImage=`url("${d.image}")`; modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  }));
+  $$('.filter-btn').forEach(btn=>btn.onclick=()=>{ $$('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const f=btn.dataset.filter; grid.querySelectorAll('.car-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f)); });
+}
+function renderSiteNews(list){
+  const grid=$('.news-grid'); if(!grid)return;
+  grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><a href="${n.link||'#devlog'}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
+}
+loadSiteData();
