@@ -74,11 +74,11 @@ loadSiteData();
 // Site loading screen
 (function(){
   const loader=document.getElementById('siteLoader');
+  const percent=document.getElementById('loaderPercent');
+  const status=document.getElementById('loaderStatus');
   if(!loader)return;
-  const staticAssets=[
-    'assets/hero-clean.jpg','assets/world-clean.jpg','assets/car-clean.jpg',
-    'assets/city-clean.jpg','assets/city-01.jpg','assets/street-01.jpg'
-  ];
+  const staticAssets=['assets/hero-clean.jpg','assets/world-clean.jpg','assets/car-clean.jpg','assets/city-clean.jpg','assets/city-01.jpg','assets/street-01.jpg'];
+  const setProgress=(n,label)=>{if(percent)percent.textContent=Math.round(n)+'%';if(status&&label)status.firstChild.nodeValue=label;};
   const preloadImage=src=>new Promise(resolve=>{
     const img=new Image();
     img.onload=img.onerror=()=>resolve();
@@ -86,26 +86,31 @@ loadSiteData();
   });
   const hideLoader=()=>{
     if(loader.classList.contains('done'))return;
+    setProgress(100,'ГОТОВО');
     loader.classList.add('done');
     setTimeout(()=>loader.remove(),700);
   };
   const start=async()=>{
-    const imageUrls=[...staticAssets];
+    let imageUrls=[...staticAssets];
+    setProgress(5,'ЗАПУСК SPEEDFOR STREET');
     try{
-      const [carsRes,newsRes]=await Promise.all([
-        fetch('data/cars.json'),fetch('data/news.json')
-      ]);
-      if(carsRes.ok){
-        const data=await carsRes.json();
-        data.forEach(x=>x.image&&imageUrls.push(x.image));
-      }
-      if(newsRes.ok){
-        const data=await newsRes.json();
-        data.forEach(x=>x.image&&imageUrls.push(x.image));
-      }
+      const [carsRes,newsRes]=await Promise.all([fetch('data/cars.json'),fetch('data/news.json')]);
+      setProgress(15,'ПОЛУЧЕНИЕ ДАННЫХ');
+      if(carsRes.ok){const data=await carsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
+      if(newsRes.ok){const data=await newsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
     }catch(e){}
-    await Promise.all([...new Set(imageUrls)].map(preloadImage));
+    imageUrls=[...new Set(imageUrls)];
+    let loaded=0;
+    setProgress(20,'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
+    await Promise.all(imageUrls.map(async src=>{
+      await preloadImage(src);
+      loaded++;
+      setProgress(20+Math.round((loaded/imageUrls.length)*70),'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
+    }));
+    setProgress(94,'ПОДГОТОВКА САЙТА');
     if(document.fonts&&document.fonts.ready)try{await document.fonts.ready}catch(e){}
+    setProgress(98,'ПОЧТИ ГОТОВО');
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
     hideLoader();
   };
   if(document.readyState==='complete')start();
