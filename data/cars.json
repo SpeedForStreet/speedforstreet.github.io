@@ -53,16 +53,5 @@
     "drive": "AWD",
     "tune": "TRACK SETUP",
     "image": "assets/hero-clean.jpg"
-  },
-  {
-    "id": "garage2",
-    "category": "garage",
-    "kicker": "GARAGE PROJECT",
-    "title": "PROJECT CAR",
-    "desc": "Базовый автомобиль для долгого проекта: меняй детали постепенно и собирай собственный характер машины.",
-    "engine": "PROJECT",
-    "drive": "RWD / AWD",
-    "tune": "FULL PROJECT",
-    "image": "assets/city-clean.jpg"
   }
 ]
