@@ -17,9 +17,7 @@
     "title": "123",
     "text": "",
     "image": "",
-    "link": "#devlog",
-    "published": false,
-    "telegram": true
+    "link": "#devlog"
   },
   {
     "id": "devlog-001",
