@@ -67,8 +67,22 @@ function renderSiteCars(list){
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
-  grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><a href="${n.link||'#devlog'}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
+  grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p>${n.shortDescription||n.text||''}</p><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
+  grid.querySelectorAll('.news-read-more').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openNewsModal(list.find(n=>n.id===a.dataset.newsId));}));
 }
+function openNewsModal(n){
+  if(!n||!$('#newsModal'))return;
+  $('#newsModalKicker').textContent=(n.date?n.date+' • ':'')+(n.tag||'');
+  $('#newsModalTitle').textContent=n.title||'';
+  $('#newsModalDesc').textContent=n.fullDescription||n.text||n.shortDescription||'';
+  $('#newsModalImg').style.backgroundImage=n.image?'url("'+n.image+'")':'none';
+  $('#newsModal').classList.add('open');
+  $('#newsModal').setAttribute('aria-hidden','false');
+}
+function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');}
+document.addEventListener('click',e=>{if(e.target.closest('.news-modal-close'))closeNewsModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNewsModal();});
+const newsModalEl=$('#newsModal'); newsModalEl?.addEventListener('click',e=>{if(e.target===newsModalEl)closeNewsModal();});
 loadSiteData();
 
 
