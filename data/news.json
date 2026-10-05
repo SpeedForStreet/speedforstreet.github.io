@@ -22,15 +22,6 @@
     "telegram": true
   },
   {
-    "id": "123",
-    "date": "123",
-    "tag": "123",
-    "title": "123",
-    "text": "",
-    "image": "",
-    "link": "#devlog"
-  },
-  {
     "id": "devlog-001",
     "date": "05.10.2026",
     "tag": "DEVLOG",
