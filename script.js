@@ -74,7 +74,7 @@ function openNewsModal(n){
   if(!n||!$('#newsModal'))return;
   $('#newsModalKicker').textContent=(n.date?n.date+' • ':'')+(n.tag||'');
   $('#newsModalTitle').textContent=n.title||'';
-  $('#newsModalDesc').textContent=n.fullDescription||n.text||n.shortDescription||'';
+  $('#newsModalDesc').innerHTML=n.fullDescription||n.text||n.shortDescription||'';
   $('#newsModalImg').style.backgroundImage=n.image?'url("'+n.image+'")':'none';
   $('#newsModal').classList.add('open');
   $('#newsModal').setAttribute('aria-hidden','false');
