@@ -3,65 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="SpeedForStreet — жизнь, машины, город. Твоя история.">
+<meta name="theme-color" content="#07090d">
+<meta name="description" content="SpeedForStreet — жизнь. Машины. Город. Твоя история.">
 <title>SpeedForStreet — Official</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="grain"></div>
+<div class="noise" aria-hidden="true"></div>
 
-<header class="nav">
-  <a class="mini-logo" href="#top"><span>SPEED</span><b>FOR STREET</b></a>
-  <nav>
+<header class="site-header">
+  <a class="logo" href="#top" aria-label="SpeedForStreet">
+    <span>SPEED</span><b>FOR STREET</b>
+  </a>
+  <nav class="main-nav" aria-label="Основная навигация">
     <a class="active" href="#top">Главная</a>
     <a href="#game">Об игре</a>
     <a href="#cars">Автомобили</a>
     <a href="#world">Мир</a>
     <a href="#devlog">DevLog</a>
   </nav>
-  <div class="socials">
-    <a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="dot" cx="17.5" cy="6.5" r="1"/></svg>
-    </a>
-    <a href="https://vk.com/speedforstreet" target="_blank" rel="noopener" class="vk">vk</a>
-    <a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener" aria-label="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M15 4v9.2a4.8 4.8 0 1 1-4-4.72"/><path d="M15 4c.5 2.2 1.8 3.5 4 4"/></svg>
-    </a>
-    <a href="https://t.me/speedforstreet" target="_blank" rel="noopener" aria-label="Telegram">
-      <svg viewBox="0 0 24 24"><path d="M21 3 3.8 10.1c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.3c.2.7 1.1.9 1.6.3l2.5-2.9 4.4 3.2c.7.5 1.6.1 1.8-.7L21.9 4c.2-.8-.2-1.3-.9-1z"/><path d="m8.2 13.4 9.3-7.1-6.6 8.3"/></svg>
-    </a>
+  <div class="socials" aria-label="Социальные сети">
+    <a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+    <a href="https://vk.com/speedforstreet" target="_blank" rel="noopener" aria-label="VK">VK</a>
+    <a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+    <a href="https://t.me/speedforstreet" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
   </div>
+  <button class="menu-btn" aria-label="Открыть меню">☰</button>
 </header>
 
-<main id="top">
+<div class="mobile-menu" aria-hidden="true">
+  <a href="#top">Главная</a><a href="#game">Об игре</a><a href="#cars">Автомобили</a><a href="#world">Мир</a><a href="#devlog">DevLog</a>
+</div>
 
-<section class="hero">
-  <div class="hero-copy">
-    <div class="brand-big"><span>SPEED</span><b>FOR STREET</b></div>
+<main id="top">
+<section class="hero" id="home">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="eyebrow">SPEEDFOR STREET</div>
+    <h1><span>SPEED</span><em>FOR STREET</em></h1>
     <div class="tagline">Жизнь. Машины. Город. Твоя история.</div>
-    <p>Одиночный open-world, где автомобиль — часть жизни, город живёт независимо от тебя, а путь выбираешь только ты.</p>
+    <p class="lead">Одиночный open-world, где автомобиль — часть жизни, город живёт независимо от тебя, а путь выбираешь только ты.</p>
     <div class="hero-actions">
-      <a class="cta" href="#game">УЗНАТЬ ОБ ИГРЕ <strong>→</strong></a>
-      <span class="ea">EARLY ACCESS<br><b>В РАЗРАБОТКЕ</b></span>
+      <a class="btn-primary" href="#game">УЗНАТЬ ОБ ИГРЕ <span>→</span></a>
+      <div class="status"><b>EARLY ACCESS</b><span>В РАЗРАБОТКЕ</span></div>
     </div>
-    <div class="feature-row">
-      <div><i>◈</i><b>OPEN WORLD</b></div>
+    <div class="hero-features">
+      <div><i>▱</i><b>OPEN WORLD</b></div>
       <div><i>⚑</i><b>RACING</b></div>
       <div><i>⌂</i><b>LIFE SIM</b></div>
-      <div><i>⚙</i><b>ТЮНИНГ</b></div>
-      <div><i>◫</i><b>РАЗВИТИЕ</b></div>
+      <div><i>⌁</i><b>ТЮНИНГ</b></div>
+      <div><i>▥</i><b>РАЗВИТИЕ</b></div>
     </div>
   </div>
-  <div class="hero-art"></div>
+  <div class="hero-corner">v0.1 • CONCEPT / DEVELOPMENT</div>
 </section>
 
-<div class="ticker"><span>BUILD YOUR LIFE</span><b>•</b><span>BUILD YOUR CAR</span><b>•</b><span>OWN THE CITY</span><b>•</b><span>MAKE YOUR STORY</span></div>
+<div class="marquee"><div>BUILD YOUR LIFE <span>•</span> BUILD YOUR CAR <span>•</span> OWN THE CITY <span>•</span> MAKE YOUR STORY <span>•</span> BUILD YOUR LIFE <span>•</span></div></div>
 
-<section class="intro" id="game">
+<section class="section intro" id="game">
   <div class="section-label">01 / ОБ ИГРЕ</div>
-  <div class="intro-grid">
-    <div><h2>НЕ ПРОСТО<br><em>ГОНКИ.</em></h2></div>
-    <div><p>SpeedForStreet — это жизнь в большом городе. Ты начинаешь практически с нуля, а дальше сам строишь своё будущее.</p><p>Работаешь. Покупаешь первую машину. Получаешь права. Снимаешь жильё. Тюнингуешь автомобиль. Участвуешь в гонках. Или вообще выбираешь другой путь.</p></div>
+  <div class="two-col title-row">
+    <h2>НЕ ПРОСТО<br><em>ГОНКИ.</em></h2>
+    <div class="copy"><p>SpeedForStreet — это жизнь в большом городе. Ты начинаешь практически с нуля, а дальше сам строишь своё будущее.</p><p>Работаешь. Покупаешь первую машину. Получаешь права. Снимаешь жильё. Тюнингуешь автомобиль. Участвуешь в гонках. Или вообще выбираешь другой путь.</p></div>
   </div>
   <div class="pillars">
     <article><span>01</span><h3>СВОБОДА</h3><p>Нет единственного правильного пути.</p></article>
@@ -71,65 +75,53 @@
   </div>
 </section>
 
-<section class="cars" id="cars">
+<section class="section cars" id="cars">
   <div class="section-label">02 / AUTOMOTIVE</div>
-  <div class="section-title"><h2>МАШИНЫ — ЭТО<br><em>ХАРАКТЕР.</em></h2><p>В SpeedForStreet мы не хотим делать автомобили просто красивыми моделями. Они должны ощущаться по-разному.</p></div>
+  <div class="two-col title-row"><h2>МАШИНЫ — ЭТО<br><em>ХАРАКТЕР.</em></h2><div class="copy"><p>Автомобили должны не просто красиво выглядеть. Они должны ощущаться по-разному: масса, мотор, коробка, сцепление, тормоза, подвеска и шины реально влияют на поведение машины.</p></div></div>
   <div class="car-grid">
-    <article class="car-card large"><div class="car-image car-img-1"></div><div class="card-copy"><small>STREET CLASS</small><h3>ПЕРВАЯ МАШИНА</h3><p>Начало твоей автомобильной истории.</p></div></article>
-    <article class="car-card"><div class="car-image car-img-2"></div><div class="card-copy"><small>PERFORMANCE</small><h3>ГОРОДСКОЙ СПОРТ</h3><p>Скорость, управляемость и настройка.</p></div></article>
-    <article class="car-card"><div class="car-image car-img-3"></div><div class="card-copy"><small>GARAGE</small><h3>ТЮНИНГ</h3><p>Внешние и технические изменения.</p></div></article>
+    <button class="car-card featured" data-car="street"><div class="car-image img1"></div><div class="card-copy"><small>STREET CLASS</small><h3>ГОРОДСКОЙ СПОРТ</h3><p>Первый серьёзный шаг в автомобильную жизнь.</p><b>СМОТРЕТЬ →</b></div></button>
+    <button class="car-card" data-car="performance"><div class="car-image img2"></div><div class="card-copy"><small>PERFORMANCE</small><h3>СКОРОСТЬ</h3><p>Мощность, сцепление и настройка.</p><b>СМОТРЕТЬ →</b></div></button>
+    <button class="car-card" data-car="garage"><div class="car-image img3"></div><div class="card-copy"><small>GARAGE</small><h3>ТЮНИНГ</h3><p>Внешние и технические изменения.</p><b>СМОТРЕТЬ →</b></div></button>
   </div>
   <div class="spec-strip"><span>ENGINE</span><b>DRIVETRAIN</b><span>SUSPENSION</span><b>BRAKES</b><span>TYRES</span><b>AERODYNAMICS</b><span>ECU</span></div>
 </section>
 
 <section class="world" id="world">
-  <div class="world-image"></div>
-  <div class="world-copy">
-    <div class="section-label">03 / THE CITY</div>
-    <h2>ГОРОД НЕ<br><em>ЖДЁТ ТЕБЯ.</em></h2>
-    <p>Утром люди едут на работу. Магазины открываются. Днём улицы заполнены транспортом. Вечером город меняется.</p>
-    <ul>
-      <li><b>ДЕНЬ / НОЧЬ</b><span>Время реально влияет на жизнь города.</span></li>
-      <li><b>РАСПИСАНИЯ NPC</b><span>Дом, работа, маршруты и повседневные дела.</span></li>
-      <li><b>ТРАНСПОРТ</b><span>Трафик и активность меняются в течение суток.</span></li>
-      <li><b>ЭКОНОМИКА</b><span>Зарплаты, расходы, магазины и возможности.</span></li>
-    </ul>
+  <div class="world-photo"></div>
+  <div class="world-copy"><div class="section-label">03 / THE CITY</div><h2>ГОРОД НЕ<br><em>ЖДЁТ ТЕБЯ.</em></h2><p>Утром люди едут на работу. Магазины открываются. Днём улицы заполнены транспортом. Вечером город меняется.</p>
+    <div class="world-list">
+      <div><b>ДЕНЬ / НОЧЬ</b><span>Время реально влияет на жизнь города.</span></div>
+      <div><b>РАСПИСАНИЯ NPC</b><span>Дом, работа, маршруты и повседневные дела.</span></div>
+      <div><b>ТРАНСПОРТ</b><span>Трафик и активность меняются в течение суток.</span></div>
+      <div><b>ЭКОНОМИКА</b><span>Зарплаты, расходы, магазины и возможности.</span></div>
+    </div>
   </div>
 </section>
 
-<section class="routes">
-  <div class="section-label">04 / YOUR LIFE</div>
-  <h2>КЕМ ТЫ <em>СТАНЕШЬ?</em></h2>
+<section class="section routes">
+  <div class="section-label">04 / YOUR LIFE</div><h2>КЕМ ТЫ <em>СТАНЕШЬ?</em></h2>
   <div class="route-grid">
-    <div><span>01</span><h3>ГОНЩИК</h3><p>Гонки, авторитет, автомобили и победы.</p></div>
-    <div><span>02</span><h3>МЕХАНИК</h3><p>Работа с машинами и развитие мастерства.</p></div>
-    <div><span>03</span><h3>ПРЕДПРИНИМАТЕЛЬ</h3><p>Деньги, имущество и собственное дело.</p></div>
-    <div><span>04</span><h3>ПРОСТО ЖИЗНЬ</h3><p>Работай, гуляй, покупай машину и живи в городе.</p></div>
+    <article><span>01</span><h3>ГОНЩИК</h3><p>Гонки, авторитет, автомобили и победы.</p></article>
+    <article><span>02</span><h3>МЕХАНИК</h3><p>Работа с машинами и развитие мастерства.</p></article>
+    <article><span>03</span><h3>ПРЕДПРИНИМАТЕЛЬ</h3><p>Деньги, имущество и собственное дело.</p></article>
+    <article><span>04</span><h3>ПРОСТО ЖИЗНЬ</h3><p>Работай, гуляй, покупай машину и живи в городе.</p></article>
   </div>
 </section>
 
-<section class="devlog" id="devlog">
+<section class="section devlog" id="devlog">
   <div class="section-label">05 / DEVELOPMENT</div>
-  <div class="section-title"><h2>СТРОИМ<br><em>С НУЛЯ.</em></h2><p>Проект создаётся одним разработчиком. Здесь начинается публичная история SpeedForStreet.</p></div>
-  <div class="timeline">
-    <div><b>01</b><strong>КОНЦЕПТ</strong><span>Мир, стиль, автомобили</span></div>
-    <div><b>02</b><strong>ПРОТОТИП</strong><span>Персонаж + автомобиль</span></div>
-    <div><b>03</b><strong>ГОРОД</strong><span>Первая игровая зона</span></div>
-    <div><b>04</b><strong>EARLY ACCESS</strong><span>Первый публичный билд</span></div>
-  </div>
+  <div class="two-col title-row"><h2>СТРОИМ<br><em>С НУЛЯ.</em></h2><div class="copy"><p>Проект создаётся одним разработчиком. Здесь начинается публичная история SpeedForStreet.</p></div></div>
+  <div class="timeline"><div><b>01</b><strong>КОНЦЕПТ</strong><span>Мир, стиль, автомобили</span></div><div><b>02</b><strong>ПРОТОТИП</strong><span>Персонаж + автомобиль</span></div><div><b>03</b><strong>ГОРОД</strong><span>Первая игровая зона</span></div><div><b>04</b><strong>EARLY ACCESS</strong><span>Первый публичный билд</span></div></div>
 </section>
 
-<section class="social-cta" id="contacts">
+<section class="section contact" id="contacts">
   <div><div class="section-label">JOIN THE RIDE</div><h2>БУДЬ С НАМИ<br>С САМОГО НАЧАЛА.</h2><p>Следи за разработкой, концептами, автомобилями и новыми механиками.</p></div>
-  <div class="big-socials">
-    <a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener"><span>◎</span> Instagram</a>
-    <a href="https://vk.com/speedforstreet" target="_blank" rel="noopener"><span>vk</span> VK</a>
-    <a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener"><span>♪</span> TikTok</a>
-    <a href="https://t.me/speedforstreet" target="_blank" rel="noopener"><span>➤</span> Telegram</a>
-  </div>
+  <div class="big-socials"><a href="https://instagram.com/speed_for_street" target="_blank" rel="noopener"><b>IG</b> Instagram</a><a href="https://vk.com/speedforstreet" target="_blank" rel="noopener"><b>VK</b> VK</a><a href="https://tiktok.com/@speedforstreet" target="_blank" rel="noopener"><b>TT</b> TikTok</a><a href="https://t.me/speedforstreet" target="_blank" rel="noopener"><b>TG</b> Telegram</a></div>
 </section>
-
 </main>
+
+<div class="modal" id="carModal" aria-hidden="true"><div class="modal-box"><button class="modal-close" aria-label="Закрыть">×</button><div class="modal-img" id="modalImg"></div><div class="modal-text"><div class="section-label" id="modalKicker"></div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="modal-specs"><span>ДВИГАТЕЛЬ <b id="modalEngine"></b></span><span>ПРИВОД <b id="modalDrive"></b></span><span>ТЮНИНГ <b id="modalTune"></b></span></div></div></div></div>
+
 <footer><span>© 2026 SPEED FOR STREET</span><span>ЖИЗНЬ. МАШИНЫ. ГОРОД. ТВОЯ ИСТОРИЯ.</span></footer>
 <script src="script.js"></script>
 </body>

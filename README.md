@@ -1,15 +1,10 @@
-# SpeedForStreet — Official GitHub Pages Site
+# SpeedForStreet — Official Site
+
+Статический сайт для GitHub Pages.
 
 ## Публикация
-1. Создай публичный репозиторий на GitHub.
-2. Загрузи ВСЁ содержимое этой папки в корень репозитория.
-3. Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save.
-4. Ссылки соцсетей уже настроены:
-   - Instagram: https://instagram.com/speed_for_street
-   - VK: https://vk.com/speedforstreet
-   - TikTok: https://tiktok.com/@speedforstreet
-   - Telegram: https://t.me/speedforstreet
+1. Распакуйте архив.
+2. Загрузите содержимое папки в репозиторий GitHub.
+3. GitHub → Settings → Pages → Deploy from branch → `main` / `/root`.
 
-## Важно
-Картинки находятся в `assets/`. Не удаляй эту папку, иначе изображения сайта пропадут.
-Сайт статический и не требует PHP, Node.js или базы данных.
+Важно: папка `assets` обязательна — в ней лежат изображения.
