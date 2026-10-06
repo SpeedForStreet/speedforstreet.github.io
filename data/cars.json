@@ -1,5 +1,16 @@
 [
   {
+    "id": "varex-r9-vortex",
+    "category": "performance",
+    "kicker": "VAREX • SUPERCAR",
+    "title": "R9 VORTEX",
+    "desc": "Флагманский суперкар Varex с агрессивной аэродинамикой, среднемоторной компоновкой и характером, созданным для высокой скорости. Одна из знаковых машин SpeedForStreet.",
+    "engine": "5.2 V10 TWIN-TURBO",
+    "drive": "AWD",
+    "tune": "ПОЛНЫЙ ТЮНИНГ",
+    "image": "assets/hero-clean.jpg"
+  },
+  {
     "id": "street",
     "category": "street",
     "kicker": "STREET CLASS",
