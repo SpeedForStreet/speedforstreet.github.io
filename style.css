@@ -118,12 +118,12 @@
 .district>*{position:relative;z-index:1}.district span{color:var(--red);font-weight:700}.district h3{font:500 28px Oswald;margin:35px 0 7px}.district p{color:#b3b8c0;line-height:1.5;margin:0;max-width:380px}.d1{background-image:url('assets/city-clean.jpg')}.d2{background-image:url('assets/world-clean.jpg')}.d3{background-image:url('assets/street-01.jpg')}.d4{background-image:url('assets/hero-clean.jpg')}.d5{background-image:url('assets/city-01.jpg')}.d6{background-image:url('assets/car-clean.jpg')}
 .news{background:linear-gradient(120deg,#0c1017,#08090d)}
 .news-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px;margin-top:55px}
-.news-card{background:#0a0d12;border:1px solid var(--line);overflow:hidden;transition:.25s}.news-card:hover{transform:translateY(-4px);border-color:rgba(255,36,56,.55)}
-.news-image{height:190px;background-size:cover;background-position:center}.featured-news .news-image{height:260px}.n1{background-image:url('assets/hero-clean.jpg')}.n2{background-image:url('assets/world-clean.jpg')}.n3{background-image:url('assets/car-clean.jpg')}
+.news-card{background:#0a0d12;border:1px solid var(--line);overflow:hidden;transition:.25s;cursor:pointer}.news-card:hover{transform:translateY(-4px);border-color:rgba(255,36,56,.55)}
+.news-image{height:auto;aspect-ratio:16/9;background-size:cover;background-position:center}.featured-news .news-image{height:auto;aspect-ratio:16/9}.n1{background-image:url('assets/hero-clean.jpg')}.n2{background-image:url('assets/world-clean.jpg')}.n3{background-image:url('assets/car-clean.jpg')}
 .news-body{padding:24px}.news-body>span{font:10px Oswald;letter-spacing:2px;color:var(--red)}.news-body h3{font:500 25px/1.05 Oswald;margin:14px 0 10px}.news-body p{color:var(--muted);line-height:1.6}.news-body a{display:inline-block;margin-top:13px;color:#fff;text-decoration:none;font-size:10px;letter-spacing:1.5px}.news-body a:hover{color:var(--red)}
 footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 @media(max-width:1050px){.gallery-grid{grid-template-columns:1fr 1fr}.district-grid{grid-template-columns:1fr 1fr}.news-grid{grid-template-columns:1fr 1fr}.featured-news{grid-column:1/-1}}
-@media(max-width:700px){.gallery-grid{grid-template-columns:1fr}.district-grid{grid-template-columns:1fr}.news-grid{grid-template-columns:1fr}.featured-news{grid-column:auto}.news-image,.featured-news .news-image{height:220px}.gallery-toolbar{margin-top:30px}}
+@media(max-width:700px){.gallery-grid{grid-template-columns:1fr}.district-grid{grid-template-columns:1fr}.news-grid{grid-template-columns:1fr}.featured-news{grid-column:auto}.news-image,.featured-news .news-image{height:auto;aspect-ratio:16/9}.gallery-toolbar{margin-top:30px}}
 
 /* About page */
 .about-hero{min-height:520px;display:flex;align-items:flex-end;padding:150px 7vw 80px;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(5,7,10,.94),rgba(5,7,10,.5)),url('assets/world-clean.jpg') center/cover}
