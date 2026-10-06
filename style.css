@@ -200,3 +200,45 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
   .news-modal-text h2{font-size:34px}
   .news-modal-description{font-size:15px;line-height:1.75}
 }
+
+/* Official SpeedForStreet footer */
+.site-footer{border-top:1px solid rgba(255,255,255,.12);background:#05090f;padding:34px 4.5vw}
+.footer-inner{max-width:1380px;margin:0 auto;display:flex;align-items:center;gap:24px;min-height:100px}
+.footer-logo{width:205px;flex:0 0 205px;text-decoration:none;transform:skew(-7deg);line-height:.72}
+.footer-logo span{display:block;color:#fff;font:700 43px/ .72 Oswald;letter-spacing:-2px}
+.footer-logo b{display:block;color:var(--red);font:700 24px/.9 Oswald;margin-left:30px;letter-spacing:-1px}
+.footer-divider{width:1px;height:70px;background:rgba(255,255,255,.18);flex:0 0 1px}
+.footer-info{flex:1;min-width:0}
+.footer-nav{display:flex;align-items:center;flex-wrap:wrap;gap:12px;color:#fff}
+.footer-nav a{font:500 13px Oswald;letter-spacing:.7px;color:#e7e9ed;text-decoration:none;white-space:nowrap}
+.footer-nav a:hover{color:var(--red)}
+.footer-nav i{font-style:normal;color:#69717c}
+.footer-legal{display:flex;flex-direction:column;gap:4px;margin-top:14px;color:#718093;font-size:11px;line-height:1.35}
+.footer-socials{display:flex;align-items:center;gap:18px;white-space:nowrap}
+.footer-socials a{color:var(--red);font:700 21px/1 Arial;text-decoration:none;transition:.2s}
+.footer-socials a:hover{color:#fff;transform:translateY(-2px)}
+.footer-socials a[aria-label="VK"]{font-size:18px}
+.footer-rating{height:56px;border:2px solid #fff;border-radius:6px;display:flex;align-items:center;color:#fff;overflow:hidden;flex:0 0 auto}
+.footer-rating strong{font:700 32px/1 Arial;padding:0 12px;border-right:2px solid #fff;height:100%;display:flex;align-items:center}
+.footer-rating span{font:700 10px/1.1 Oswald;letter-spacing:.5px;text-align:center;padding:0 12px}
+@media(max-width:1050px){
+  .footer-inner{flex-wrap:wrap}
+  .footer-info{order:2;flex-basis:calc(100% - 250px)}
+  .footer-social-divider{display:none}
+  .footer-socials{order:3;margin-left:auto}
+  .footer-rating-divider{order:4}
+  .footer-rating{order:5}
+}
+@media(max-width:700px){
+  .site-footer{padding:28px 20px}
+  .footer-inner{display:grid;grid-template-columns:1fr;gap:20px}
+  .footer-logo{width:180px}
+  .footer-divider{display:none}
+  .footer-info{order:2}
+  .footer-nav{gap:8px 10px}
+  .footer-nav i{display:none}
+  .footer-nav a{font-size:12px}
+  .footer-legal{font-size:10px}
+  .footer-socials{order:3;margin:0}
+  .footer-rating{order:4;justify-self:start}
+}
