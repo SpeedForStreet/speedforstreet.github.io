@@ -214,7 +214,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 .footer-nav a:hover{color:var(--red)}
 .footer-nav i{font-style:normal;color:#69717c}
 .footer-legal{display:flex;flex-direction:column;gap:4px;margin-top:14px;color:#718093;font-size:11px;line-height:1.35}
-.footer-socials{display:flex;align-items:center;gap:22px;white-space:nowrap}
+.footer-socials{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .footer-socials a{color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;width:48px;height:48px;transition:.2s}.footer-socials a svg{width:34px;height:34px;fill:currentColor;display:block}
 .footer-socials a:hover{color:#fff;transform:translateY(-2px)}
 
