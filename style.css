@@ -242,3 +242,9 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
   .footer-socials{order:3;margin:0}
   .footer-rating{order:4;justify-self:start}
 }
+
+
+/* Site background music player */
+.site-music{position:fixed;right:24px;bottom:22px;z-index:95;display:flex;align-items:center;gap:10px;padding:9px 11px;background:rgba(5,7,10,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px)}
+.music-toggle{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:#fff;cursor:pointer;font:600 11px Oswald;letter-spacing:1.3px;padding:8px 9px}.music-toggle:hover{color:var(--red)}.music-toggle .music-icon{font-size:19px;color:var(--red);line-height:1}.music-volume{display:flex;align-items:center;gap:8px;border-left:1px solid rgba(255,255,255,.14);padding-left:11px}.music-volume label{font:500 9px Oswald;letter-spacing:1px;color:#8e96a2}.music-volume input{width:72px;accent-color:var(--red)}
+@media(max-width:700px){.site-music{right:12px;bottom:12px;padding:7px}.music-volume{display:none}.music-toggle{padding:8px}.music-label{font-size:10px}}
