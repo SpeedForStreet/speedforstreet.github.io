@@ -179,7 +179,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 /* News article modal */
 .news-modal{overflow-y:auto;align-items:flex-start;padding:30px 20px}
 .news-modal-box{display:block;width:min(900px,96vw);max-height:none;overflow:visible}
-.news-modal-img{width:100%;height:min(52vw,430px);min-height:240px;background:center/cover no-repeat}
+.news-modal-img{width:100%;height:auto;aspect-ratio:16/9;min-height:0;background-color:#05070a;background-position:center;background-repeat:no-repeat;background-size:contain}
 .news-modal-text{padding:36px 42px 42px}
 .news-modal-text h2{font-size:46px;line-height:1.05}
 .news-modal-description{color:var(--muted);line-height:1.8;font-size:16px;white-space:normal;overflow-wrap:anywhere}
