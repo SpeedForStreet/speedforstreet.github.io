@@ -70,7 +70,12 @@ function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
   grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url('${n.image||''}')"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><div class="news-short">${n.shortDescription||n.text||''}</div><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
-  grid.querySelectorAll('.news-read-more').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openNewsModal(list.find(n=>n.id===a.dataset.newsId));}));
+  grid.querySelectorAll('.news-card').forEach(card=>{
+    card.addEventListener('click',e=>{
+      if(e.target.closest('a')){e.preventDefault();}
+      const item=list.find(n=>n.id===card.dataset.newsId); if(item)openNewsModal(item);
+    });
+  });
 }
 function openNewsModal(n){
   if(!n||!$('#newsModal'))return;
