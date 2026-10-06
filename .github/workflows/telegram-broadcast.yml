@@ -32,7 +32,7 @@ jobs:
 
           for item in news:
               if item.get("telegram") is True:
-                  short_text = plain_html(item.get("shortDescription") or item.get("text") or "")
+                  short_text = plain_html(item.get("shortDescription") or item.get("text") or "")\n                  if len(short_text) > 2500:\n                      short_text = short_text[:2497].rstrip() + "..."
                   telegram_item = {
                       "id": item.get("id", ""),
                       "date": item.get("date", ""),
