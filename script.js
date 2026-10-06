@@ -169,3 +169,16 @@ loadSiteData();
   else window.addEventListener('load',start,{once:true});
   setTimeout(hideLoader,15000);
 })();
+
+// Background music: browser-safe opt-in playback with loop and volume memory
+(function(){
+  const audio=document.getElementById('siteAudio'),btn=document.getElementById('musicToggle'),label=btn?.querySelector('.music-label'),vol=document.getElementById('musicVolume');
+  if(!audio||!btn)return;
+  audio.loop=true; audio.volume=.18;
+  try{const saved=localStorage.getItem('ssf_music_volume');if(saved!==null){const v=Math.max(0,Math.min(100,Number(saved)));if(Number.isFinite(v)){vol.value=v;audio.volume=v/100;}}}catch(e){}
+  const render=on=>{btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',on?'Выключить музыку':'Включить музыку');if(label)label.textContent=on?'MUSIC ON':'MUSIC OFF';};
+  render(false);
+  btn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();render(true);}catch(e){render(false);}}else{audio.pause();render(false);}});
+  vol?.addEventListener('input',()=>{audio.volume=Number(vol.value)/100;try{localStorage.setItem('ssf_music_volume',vol.value);}catch(e){}});
+  audio.addEventListener('play',()=>render(true));audio.addEventListener('pause',()=>render(false));
+})();
