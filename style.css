@@ -175,10 +175,28 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 .telegram-left-cta{margin-top:22px}.telegram-left-cta:hover{filter:brightness(1.15);transform:translateX(4px)}
 .tg-button{display:block;text-decoration:none;cursor:pointer}.tg-button:hover{background:rgba(255,36,56,.22);border-color:var(--red)}
 
-/* News full-description modal */
-.news-modal-box{grid-template-columns:1fr 1fr;max-height:88vh;overflow:hidden}
-.news-modal-img{min-height:560px}
-.news-modal-text{overflow:auto}
-.news-modal-description{color:var(--muted);line-height:1.8;white-space:pre-line;font-size:16px}
-.news-read-more{cursor:pointer}
-@media(max-width:700px){.news-modal-box{grid-template-columns:1fr;max-height:90vh;overflow:auto}.news-modal-img{min-height:230px}.news-modal-text{overflow:visible}.news-modal-description{font-size:15px;line-height:1.7}}
+
+/* News article modal */
+.news-modal{overflow-y:auto;align-items:flex-start;padding:30px 20px}
+.news-modal-box{display:block;width:min(900px,96vw);max-height:none;overflow:visible}
+.news-modal-img{width:100%;height:min(52vw,430px);min-height:240px;background:center/cover no-repeat}
+.news-modal-text{padding:36px 42px 42px}
+.news-modal-text h2{font-size:46px;line-height:1.05}
+.news-modal-description{color:var(--muted);line-height:1.8;font-size:16px;white-space:normal;overflow-wrap:anywhere}
+.news-modal-description p{margin:0 0 18px}
+.news-modal-description h3{font:600 30px/1.15 Oswald;color:#fff;margin:28px 0 12px}
+.news-modal-description blockquote{border-left:3px solid var(--red);padding:8px 0 8px 18px;margin:20px 0;color:#c8cdd4}
+.news-modal-description ul,.news-modal-description ol{padding-left:24px;margin:14px 0}
+.news-modal-description a{color:var(--red)}
+.news-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
+.news-actions button{border:1px solid var(--line);background:#10151d;color:#fff;padding:11px 15px;cursor:pointer;font:600 12px Oswald;letter-spacing:1px}
+.news-actions button:hover{border-color:var(--red);background:rgba(255,36,56,.08)}
+.news-actions button.active{border-color:var(--red);background:var(--red)}
+@media(max-width:700px){
+  .news-modal{padding:12px}
+  .news-modal-box{width:100%;max-height:none}
+  .news-modal-img{height:58vw;min-height:210px}
+  .news-modal-text{padding:28px 22px 30px}
+  .news-modal-text h2{font-size:34px}
+  .news-modal-description{font-size:15px;line-height:1.75}
+}
