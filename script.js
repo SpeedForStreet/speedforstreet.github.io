@@ -26,7 +26,7 @@ const cars={
 const modal=$('#carModal');
 $$('.car-card').forEach(card=>card.addEventListener('click',()=>{const d=cars[card.dataset.car];if(!d)return;$('#modalKicker').textContent=d.kicker;$('#modalTitle').textContent=d.title;$('#modalDesc').textContent=d.desc;$('#modalEngine').textContent=d.engine;$('#modalDrive').textContent=d.drive;$('#modalTune').textContent=d.tune;$('#modalImg').style.backgroundImage=`url("${d.img}")`;modal.classList.add('open');modal.setAttribute('aria-hidden','false');}));
 function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
-$('.modal-close')?.addEventListener('click',closeModal);modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('#carModal .modal-close')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeModal()});modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 
 // Gallery filters
@@ -55,8 +55,8 @@ async function loadSiteData(){
 function renderSiteCars(list){
   const grid=$('.gallery-grid'); if(!grid)return;
   grid.innerHTML=list.map((c,i)=>`<button class="car-card ${i===0?'featured':''}" data-car-cms="${c.id}" data-category="${c.category}">
-    <div class="car-image" style="background-image:url("${c.image}")"></div>
-    <div class="card-copy"><small>${c.kicker}</small><h3>${c.title}</h3><p>${c.desc}</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div>
+    <div class="car-image"><img src="${c.image||''}" alt="${c.title||'Автомобиль'}" loading="lazy"></div>
+    <div class="card-copy"><small>${c.kicker||''}</small><h3>${c.title||''}</h3><p>${c.desc||''}</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div>
   </button>`).join('');
   grid.querySelectorAll('.car-card').forEach(card=>card.addEventListener('click',()=>{
     const d=list.find(x=>x.id===card.dataset.carCms); if(!d||!modal)return;
