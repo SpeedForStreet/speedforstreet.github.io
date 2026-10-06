@@ -11,21 +11,37 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Read news and publish to Telegram Worker
+      - name: Read news and publish short description to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           NEWS_URL: https://raw.githubusercontent.com/SpeedForStreet/speedforstreet.github.io/main/data/news.json
           WORKER_URL: https://speedforstreet-telegram.yauheni-korshuk.workers.dev/broadcast
         run: |
           python - <<'PY2'
-          import json, os, re, urllib.request, urllib.error\n\n          def plain_html(value):\n              value = value or ""\n              value = re.sub(r"<br\\s*/?>", "\\n", value, flags=re.I)\n              value = re.sub(r"</(p|div|h[1-6]|li|blockquote)>", "\\n", value, flags=re.I)\n              value = re.sub(r"<[^>]+>", "", value)\n              return value.strip()
+          import json, os, re, urllib.request, urllib.error
+
+          def plain_html(value):
+              value = value or ""
+              value = re.sub(r"<br\s*/?>", "\n", value, flags=re.I)
+              value = re.sub(r"</(p|div|h[1-6]|li|blockquote)>", "\n", value, flags=re.I)
+              value = re.sub(r"<[^>]+>", "", value)
+              return value.strip()
 
           with urllib.request.urlopen(os.environ["NEWS_URL"]) as r:
               news = json.load(r)
 
           for item in news:
               if item.get("telegram") is True:
-                  telegram_item = dict(item)\n                  telegram_item["text"] = plain_html(item.get("text") or item.get("fullDescription") or item.get("shortDescription") or "")\n                  payload = json.dumps(telegram_item, ensure_ascii=False).encode("utf-8")
+                  short_text = plain_html(item.get("shortDescription") or item.get("text") or "")
+                  telegram_item = {
+                      "id": item.get("id", ""),
+                      "date": item.get("date", ""),
+                      "tag": item.get("tag", ""),
+                      "title": item.get("title", ""),
+                      "text": short_text,
+                      "link": "https://speedforstreet.github.io/#news-" + str(item.get("id", ""))
+                  }
+                  payload = json.dumps(telegram_item, ensure_ascii=False).encode("utf-8")
                   req = urllib.request.Request(
                       os.environ["WORKER_URL"],
                       data=payload,
