@@ -48,6 +48,8 @@ async function loadSiteData(){
     if(!carsRes.ok||!newsRes.ok) throw new Error('CMS data unavailable');
     const siteCars=await carsRes.json(), siteNews=await newsRes.json();
     renderSiteCars(siteCars); renderSiteNews(siteNews);
+    const hash=decodeURIComponent(location.hash||'');
+    if(hash.startsWith('#news-')){const item=siteNews.find(n=>n.id===hash.slice(6));if(item)openNewsModal(item);}
   }catch(e){ console.warn('SpeedForStreet CMS:',e); }
 }
 function renderSiteCars(list){
@@ -67,19 +69,49 @@ function renderSiteCars(list){
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
-  grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url("${n.image}")"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><p class="news-short">${n.shortDescription||n.text||''}</p><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
+  grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url('${n.image||''}')"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><div class="news-short">${n.shortDescription||n.text||''}</div><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
   grid.querySelectorAll('.news-read-more').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openNewsModal(list.find(n=>n.id===a.dataset.newsId));}));
 }
 function openNewsModal(n){
   if(!n||!$('#newsModal'))return;
+  window.currentNews=n;
   $('#newsModalKicker').textContent=(n.date?n.date+' • ':'')+(n.tag||'');
   $('#newsModalTitle').textContent=n.title||'';
   $('#newsModalDesc').innerHTML=n.fullDescription||n.text||n.shortDescription||'';
-  $('#newsModalImg').style.backgroundImage=n.image?'url("'+n.image+'")':'none';
+  $('#newsModalImg').style.backgroundImage=n.image?"url('"+n.image+"')":'none';
   $('#newsModal').classList.add('open');
   $('#newsModal').setAttribute('aria-hidden','false');
+  $('#newsModal').scrollTop=0;
+  const box=$('.news-modal-box'); if(box)box.scrollIntoView({block:'start',behavior:'auto'});
+  updateNewsReactions(n.id);
 }
 function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');}
+function reactionKey(id){return 'ssf_news_reactions_'+id}
+function getNewsReactions(id){try{return JSON.parse(localStorage.getItem(reactionKey(id))||'{"like":0,"dislike":0,"vote":""}')}catch(e){return {like:0,dislike:0,vote:''}}}
+function updateNewsReactions(id){
+  const r=getNewsReactions(id);
+  const like=$('#newsLike'),dislike=$('#newsDislike');
+  if(like){like.querySelector('span').textContent=r.like;like.classList.toggle('active',r.vote==='like')}
+  if(dislike){dislike.querySelector('span').textContent=r.dislike;dislike.classList.toggle('active',r.vote==='dislike')}
+}
+function voteNews(type){
+  const n=window.currentNews;if(!n)return;
+  const key=reactionKey(n.id),r=getNewsReactions(n.id);
+  if(r.vote===type){r[type]--;r.vote='';}
+  else{if(r.vote)r[r.vote]--;r[type]++;r.vote=type;}
+  localStorage.setItem(key,JSON.stringify(r));updateNewsReactions(n.id);
+}
+async function shareNews(){
+  const n=window.currentNews;if(!n)return;
+  const url=location.origin+location.pathname+'#news-'+encodeURIComponent(n.id);
+  const data={title:n.title||'SpeedForStreet',text:n.shortDescription||n.text||'',url};
+  try{if(navigator.share){await navigator.share(data);return;}}catch(e){if(e.name==='AbortError')return;}
+  try{await navigator.clipboard.writeText(url);alert('Ссылка на новость скопирована.');}
+  catch(e){prompt('Скопируй ссылку:',url);}
+}
+$('#newsLike')?.addEventListener('click',()=>voteNews('like'));
+$('#newsDislike')?.addEventListener('click',()=>voteNews('dislike'));
+$('#newsShare')?.addEventListener('click',shareNews);
 document.addEventListener('click',e=>{if(e.target.closest('.news-modal-close'))closeNewsModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNewsModal();});
 const newsModalEl=$('#newsModal'); newsModalEl?.addEventListener('click',e=>{if(e.target===newsModalEl)closeNewsModal();});
