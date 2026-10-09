@@ -62,6 +62,7 @@ function renderSiteCars(list){
   $('#modalFounded').textContent=d.founded||'—';$('#modalFocus').textContent=d.focus||'—';$('#modalTune').textContent=d.philosophy||d.tagline||'—';
   const left=$('#modalImg');
   left.style.backgroundImage=`url("${d.logo||'assets/varex-logo.svg'}")`;
+  left.dataset.brandCaption=(d.fullName||d.title)+' • '+(d.tagline||'AUTOMOTIVE');
   left.classList.add('manufacturer-logo-panel');
   const extra=$('#manufacturerExtra');
   const section=(title,body)=>`<section class="manufacturer-detail-section"><h3>${title}</h3>${body}</section>`;
