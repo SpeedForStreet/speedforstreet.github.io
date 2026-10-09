@@ -274,7 +274,7 @@ body.modal-open{overflow:hidden}
 
 /* Brand profile: use the company logo as the left visual */
 .manufacturer-logo-panel{background-color:#080a0e;background-image:url("assets/varex-logo.svg");background-repeat:no-repeat;background-position:center;background-size:min(76%,420px);min-height:100%;position:relative}
-.manufacturer-logo-panel:after{content:"VAREX AUTOMOTIVE • DRIVEN BY PERFORMANCE";position:absolute;left:24px;right:24px;bottom:26px;text-align:center;color:#aeb3bb;font-size:10px;letter-spacing:3px}
+.manufacturer-logo-panel:after{content:attr(data-brand-caption);position:absolute;left:24px;right:24px;bottom:26px;text-align:center;color:#aeb3bb;font-size:10px;letter-spacing:3px}
 .manufacturer-modal-box .modal-text{max-height:88vh;overflow-y:auto}
 .manufacturer-modal{overflow-y:auto}
 @media(max-width:800px){.manufacturer-logo-panel{min-height:250px;background-size:min(65%,300px)}.manufacturer-logo-panel:after{bottom:14px;font-size:8px}}
