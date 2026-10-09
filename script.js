@@ -44,7 +44,7 @@ $$('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{
 // CMS data: cars and development news are managed from admin.html
 async function loadSiteData(){
   try{
-    const [carsRes,newsRes]=await Promise.all([fetch('data/cars.json'),fetch('data/news.json')]);
+    const [carsRes,newsRes]=await Promise.all([fetch('data/manufacturers.json'),fetch('data/news.json')]);
     if(!carsRes.ok||!newsRes.ok) throw new Error('CMS data unavailable');
     const siteCars=await carsRes.json(), siteNews=await newsRes.json();
     renderSiteCars(siteCars); renderSiteNews(siteNews);
@@ -53,19 +53,22 @@ async function loadSiteData(){
   }catch(e){ console.warn('SpeedForStreet CMS:',e); }
 }
 function renderSiteCars(list){
-  const grid=$('.gallery-grid'); if(!grid)return;
-  grid.innerHTML=list.map((c,i)=>`<button class="car-card ${i===0?'featured':''}" data-car-cms="${c.id}" data-category="${c.category}">
-    <div class="car-image"><img src="${c.image||''}" alt="${c.title||'Автомобиль'}" loading="lazy"></div>
-    <div class="card-copy"><small>${c.kicker||''}</small><h3>${c.title||''}</h3><p>${c.desc||''}</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div>
-  </button>`).join('');
-  grid.querySelectorAll('.car-card').forEach(card=>card.addEventListener('click',()=>{
-    const d=list.find(x=>x.id===card.dataset.carCms); if(!d||!modal)return;
-    $('#modalKicker').textContent=d.kicker; $('#modalTitle').textContent=d.title; $('#modalDesc').textContent=d.desc;
-    $('#modalEngine').textContent=d.engine; $('#modalDrive').textContent=d.drive; $('#modalTune').textContent=d.tune;
-    $('#modalImg').style.backgroundImage=`url("${d.image}")`; modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-  }));
-  $$('.filter-btn').forEach(btn=>btn.onclick=()=>{ $$('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const f=btn.dataset.filter; grid.querySelectorAll('.car-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f)); });
+ const grid=$('.gallery-grid');if(!grid)return;
+ const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="${esc(m.fullName||m.title)} logo" loading="lazy"></div><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Концепт бренда ${esc(m.title)}" loading="lazy"></div><div class="card-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><h3>${esc(m.fullName||m.title)}</h3><p>${esc(m.desc||'')}</p><b>ИЗУЧИТЬ ИСТОРИЮ И МОДЕЛИ →</b></div></button>`).join('');
+ grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
+  const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
+  $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
+  $('#modalFounded').textContent=d.founded||'—';$('#modalFocus').textContent=d.focus||'—';$('#modalTune').textContent=d.philosophy||d.tagline||'—';
+  $('#modalImg').style.backgroundImage=`url("${d.image||''}")`;
+  const escHtml=esc, extra=$('#manufacturerExtra');
+  const section=(title,body)=>`<section class="manufacturer-detail-section"><h3>${title}</h3>${body}</section>`;
+  extra.innerHTML=section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${escHtml(h.year)}</b><div><strong>${escHtml(h.title)}</strong><p>${escHtml(h.text)}</p></div></article>`).join('')}</div>`)+section('СТРУКТУРА КОНЦЕРНА',`<div class="manufacturer-subgrid">${(d.divisions||[]).map(x=>`<article><strong>${escHtml(x.name)}</strong><p>${escHtml(x.text)}</p></article>`).join('')}</div>`)+section('МОДЕЛЬНЫЙ РЯД',`<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${escHtml(x.series)}</small><h4>${escHtml(x.name)}</h4><b>${escHtml(x.spec)}</b><p>${escHtml(x.text)}</p></article>`).join('')}</div>`)+section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',`<div class="manufacturer-subgrid">${(d.technologies||[]).map(x=>`<article><strong>${escHtml(x.name)}</strong><p>${escHtml(x.text)}</p></article>`).join('')}</div>`);
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
+ }));
+ $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));});
 }
+
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
