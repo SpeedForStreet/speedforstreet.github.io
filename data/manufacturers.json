@@ -414,7 +414,7 @@
   },
   {
     "id": "street",
-    "category": "sport",
+    "category": "sports",
     "kicker": "STREET AUTOMOTIVE • EST. 1994",
     "title": "STREET",
     "fullName": "STREET Performance",
@@ -576,7 +576,7 @@
   },
   {
     "id": "track",
-    "category": "sport",
+    "category": "sports",
     "kicker": "TRACK AUTOMOTIVE • EST. 1982",
     "title": "TRACK",
     "fullName": "TRACK Automotive",
@@ -900,7 +900,7 @@
   },
   {
     "id": "zenith",
-    "category": "luxury",
+    "category": "supercars",
     "kicker": "ZENITH AUTOMOTIVE • EST. 1976",
     "title": "ZENITH",
     "fullName": "ZENITH Automotive",
