@@ -89,26 +89,10 @@
 </section>
 
 <section class="section cars" id="cars">
-  <div class="section-label">02 / AUTOMOTIVE</div>
-  <div class="two-col title-row">
-    <h2>МАШИНЫ — ЭТО<br><em>ХАРАКТЕР.</em></h2>
-    <div class="copy"><p>Автомобили — одна из главных систем SpeedForStreet. В игре важны не только внешний вид и цифры, но и то, как машина реально ведёт себя на дороге.</p><p>Двигатель, коробка, привод, масса, сцепление, тормоза, подвеска, шины и аэродинамика работают вместе.</p></div>
-  </div>
-  <div class="gallery-toolbar" role="tablist" aria-label="Фильтр автомобилей">
-    <button class="filter-btn active" data-filter="all">ВСЕ</button>
-    <button class="filter-btn" data-filter="street">STREET</button>
-    <button class="filter-btn" data-filter="performance">PERFORMANCE</button>
-    <button class="filter-btn" data-filter="garage">GARAGE</button>
-  </div>
-  <div class="car-grid gallery-grid">
-    <button class="car-card featured" data-car="street" data-category="street"><div class="car-image img1"></div><div class="card-copy"><small>STREET CLASS</small><h3>ГОРОДСКОЙ СПОРТ</h3><p>Первый серьёзный шаг в автомобильную жизнь.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-    <button class="car-card" data-car="performance" data-category="performance"><div class="car-image img2"></div><div class="card-copy"><small>PERFORMANCE</small><h3>СКОРОСТЬ</h3><p>Мощность, сцепление и настройка.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-    <button class="car-card" data-car="garage" data-category="garage"><div class="car-image img3"></div><div class="card-copy"><small>GARAGE</small><h3>ТЮНИНГ</h3><p>Внешние и технические изменения.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-    <button class="car-card" data-car="street2" data-category="street"><div class="car-image img4"></div><div class="card-copy"><small>STREET CLASS</small><h3>НОЧНОЙ STREET</h3><p>Городская машина для вечерних улиц и первых гонок.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-    <button class="car-card" data-car="performance2" data-category="performance"><div class="car-image img5"></div><div class="card-copy"><small>TRACK / STREET</small><h3>TRACK BUILD</h3><p>Настройка под скорость, торможение и стабильность.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-    <button class="car-card" data-car="garage2" data-category="garage"><div class="car-image img6"></div><div class="card-copy"><small>GARAGE PROJECT</small><h3>PROJECT CAR</h3><p>Машина, которую собирают постепенно — от базы до мечты.</p><b>ОТКРЫТЬ КАРТОЧКУ →</b></div></button>
-  </div>
-  <div class="spec-strip"><span>ENGINE</span><b>DRIVETRAIN</b><span>SUSPENSION</span><b>BRAKES</b><span>TYRES</span><b>AERODYNAMICS</b><span>ECU</span></div>
+<div class="section-label">02 / AUTOMOTIVE GROUPS</div>
+<div class="two-col title-row"><h2>ЗА КАЖДОЙ МАШИНОЙ<br><em>СТОИТ МАРКА.</em></h2><div class="copy"><p>В SpeedForStreet будут собственные автомобильные производители — со своей историей, философией, эмблемой и модельным рядом.</p><p>Открывай карточки брендов, изучай их прошлое и знакомься с машинами, которые они создают. Список будет расширяться вместе с миром игры.</p></div></div>
+<div class="gallery-toolbar" role="tablist" aria-label="Фильтр автопроизводителей"><button class="filter-btn active" data-filter="all">ВСЕ МАРКИ</button><button class="filter-btn" data-filter="sports">СПОРТ</button><button class="filter-btn" data-filter="supercars">СУПЕРКАРЫ</button><button class="filter-btn" data-filter="hypercar">ГИПЕРКАРЫ</button></div>
+<div class="car-grid gallery-grid" aria-live="polite"><button type="button" class="car-card manufacturer-card"><div class="manufacturer-card-brand"><img src="assets/varex-logo.svg" alt="VAREX Automotive"></div><div class="car-image"><img src="assets/hero-clean.jpg" alt="Концепт автомобиля VAREX"></div><div class="card-copy"><small>VAREX AUTOMOTIVE • EST. 1987</small><h3>VAREX AUTOMOTIVE</h3><p>Driven by Performance. История, технологии и модельный ряд первого автопроизводителя SpeedForStreet.</p><b>ИЗУЧИТЬ МАРКУ →</b></div></button></div>
 </section>
 
 <section class="world" id="world">
@@ -198,7 +182,7 @@
 
 <div class="modal news-modal" id="newsModal" aria-hidden="true"><div class="modal-box news-modal-box"><button class="modal-close news-modal-close" aria-label="Закрыть">×</button><div class="modal-img news-modal-img" id="newsModalImg"></div><div class="modal-text news-modal-text"><div class="section-label" id="newsModalKicker"></div><h2 id="newsModalTitle"></h2><div class="news-modal-description" id="newsModalDesc"></div><div class="news-actions" aria-label="Реакции и поделиться"><button type="button" id="newsLike">👍 <span>0</span></button><button type="button" id="newsDislike">👎 <span>0</span></button><button type="button" id="newsShare">↗ ПОДЕЛИТЬСЯ</button></div></div></div></div>
 
-<div class="modal" id="carModal" aria-hidden="true"><div class="modal-box"><button class="modal-close" aria-label="Закрыть">×</button><div class="modal-img" id="modalImg"></div><div class="modal-text"><div class="section-label" id="modalKicker"></div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="modal-specs"><span>ДВИГАТЕЛЬ <b id="modalEngine"></b></span><span>ПРИВОД <b id="modalDrive"></b></span><span>ТЮНИНГ <b id="modalTune"></b></span></div></div></div></div>
+<div class="modal manufacturer-modal" id="carModal" aria-hidden="true"><div class="modal-box manufacturer-modal-box"><button class="modal-close" aria-label="Закрыть">×</button><div class="modal-img" id="modalImg"></div><div class="modal-text"><div class="section-label" id="modalKicker"></div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="modal-specs"><span>ОСНОВАНА <b id="modalFounded"></b></span><span>СПЕЦИАЛИЗАЦИЯ <b id="modalFocus"></b></span><span>ФИЛОСОФИЯ <b id="modalTune"></b></span></div><div id="manufacturerExtra" class="manufacturer-extra"></div></div></div></div>
 
 <footer class="site-footer">
   <div class="footer-inner">
