@@ -76,6 +76,19 @@ function renderSiteCars(list){
    section('АВТОСПОРТ',cards(d.motorsport))+
    section(`${esc(d.title||d.fullName)} В МИРЕ SPEEDFORSTREET`,cards(d.world))+
    section('РАЗРАБОТКА АВТОМОБИЛЯ',`<p>${esc(d.development?.description||'')}</p><div class="manufacturer-subgrid">${(d.development?.stages||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`);
+  const lineup=extra.querySelector('.varex-lineup-board');
+  if(lineup){
+   lineup.tabIndex=0;lineup.setAttribute('role','button');lineup.setAttribute('aria-label','Открыть изображение модельного ряда в большом масштабе');lineup.title='Нажмите, чтобы увеличить';
+   const openLineupZoom=()=>{
+    const overlay=document.createElement('div');overlay.className='lineup-lightbox';overlay.innerHTML='<button type="button" class="lineup-lightbox-close" aria-label="Закрыть увеличенное изображение">×</button><img alt="'+(lineup.alt||'Модельный ряд производителя').replace(/"/g,'&quot;')+'" src="'+lineup.src+'"><div class="lineup-lightbox-hint">ESC или нажмите вне изображения, чтобы закрыть</div>';
+    const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};
+    const onKey=e=>{if(e.key==='Escape')close();};
+    overlay.addEventListener('click',e=>{if(e.target===overlay||e.target.closest('.lineup-lightbox-close'))close();});
+    document.addEventListener('keydown',onKey);document.body.appendChild(overlay);
+   };
+   lineup.addEventListener('click',openLineupZoom);
+   lineup.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLineupZoom();}});
+  }
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
  }));
  $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));});
