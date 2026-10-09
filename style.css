@@ -289,3 +289,9 @@ body.modal-open{overflow:hidden}
 .lineup-lightbox-close{position:absolute;top:14px;right:20px;width:48px;height:48px;border:1px solid #646a74;border-radius:50%;background:#11151b;color:#fff;font-size:34px;line-height:1;cursor:pointer}
 .lineup-lightbox-hint{position:absolute;bottom:16px;left:12px;right:12px;text-align:center;color:#b8bec8;font-size:12px;letter-spacing:.5px}
 @media(max-width:600px){.lineup-lightbox{padding:58px 8px 48px}.lineup-lightbox img{max-width:98vw;max-height:84vh}.lineup-lightbox-close{top:8px;right:10px}}
+
+/* VAREX cover: show the complete artwork without the separate vector logo panel */
+.manufacturer-card[data-manufacturer="varex"] .manufacturer-card-brand{display:none}
+.manufacturer-card[data-manufacturer="varex"] .car-image{height:auto;aspect-ratio:3/2}
+.manufacturer-card[data-manufacturer="varex"] .car-image img{height:100%;object-fit:contain;object-position:center}
+
