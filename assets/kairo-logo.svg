@@ -1,13 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-labelledby="title desc">
-<title id="title">KAIRO</title><desc id="desc">Metallic K emblem with a red accent and Built for the Streets tagline</desc>
-<defs><linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".28" stop-color="#777e87"/><stop offset=".55" stop-color="#e4e7eb"/><stop offset="1" stop-color="#4d535c"/></linearGradient><linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff6875"/><stop offset="1" stop-color="#d90020"/></linearGradient></defs>
-<rect width="520" height="220" rx="8" fill="#080a0e"/>
-<path d="M44 22H105L80 85 151 22H221L139 91 203 158H132L93 115 72 179H18L57 91Z" fill="#030407" stroke="#454b54" stroke-width="4" transform="translate(0 2)"/>
-<path d="M42 18H103L78 81 149 18H219L137 87 201 154H130L91 111 70 175H16L55 87Z" fill="url(#steel)" stroke="#f4f5f7" stroke-width="1.5"/>
-<path d="M137 87 173 119 145 90 183 54 219 18 149 18 78 81 103 18 42 18 55 87 16 175 70 175 91 111 130 154 201 154Z" fill="none" stroke="#242a32" stroke-width="2"/>
-<path d="M137 87 173 119 145 90 183 54 219 18 177 60 151 83Z" fill="url(#red)" stroke="#ff263e" stroke-width="1"/>
-<text x="245" y="106" fill="url(#steel)" font-family="Arial,sans-serif" font-size="59" font-weight="900" letter-spacing="4">KAIRO</text>
+<title id="title">KAIRO</title><desc id="desc">Transparent metallic K emblem with a red accent and Built for the Streets tagline</desc>
+<defs>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".28" stop-color="#777e87"/><stop offset=".55" stop-color="#e4e7eb"/><stop offset="1" stop-color="#4d535c"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff6875"/><stop offset="1" stop-color="#d90020"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="1" dy="2"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<g transform="translate(0 2)" filter="url(#shadow)">
+ <path d="M44 22H105L80 85 151 22H221L139 91 203 158H132L93 115 72 179H18L57 91Z" fill="#030407" stroke="#454b54" stroke-width="4"/>
+ <path d="M42 18H103L78 81 149 18H219L137 87 201 154H130L91 111 70 175H16L55 87Z" fill="url(#steel)" stroke="#f4f5f7" stroke-width="1.5"/>
+ <path d="M137 87 173 119 145 90 183 54 219 18 177 60 151 83Z" fill="url(#red)" stroke="#ff263e" stroke-width="1"/>
+</g>
+<text x="245" y="106" fill="url(#steel)" stroke="#292d33" stroke-width=".7" paint-order="stroke" font-family="Arial,sans-serif" font-size="59" font-weight="900" letter-spacing="4">KAIRO</text>
 <path d="M246 121H485" stroke="#ff2438" stroke-width="3"/>
-<text x="248" y="147" fill="#e8eaed" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="5">BUILT FOR THE STREETS.</text>
+<text x="248" y="147" fill="#e8eaed" stroke="#343840" stroke-width=".3" paint-order="stroke" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="5">BUILT FOR THE STREETS.</text>
 <text x="248" y="184" fill="#9da4ad" font-family="Arial,sans-serif" font-size="11" letter-spacing="2">AUTOMOTIVE • PERFORMANCE • RACING</text>
 </svg>
