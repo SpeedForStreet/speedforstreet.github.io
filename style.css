@@ -302,9 +302,9 @@ body.modal-open{overflow:hidden}
 
 /* 3D manufacturer photo ring inspired by interactive perspective carousels */
 .manufacturer-carousel{display:block;position:relative;margin:34px auto 0;max-width:1240px;padding:8px 0 24px;perspective:1400px;touch-action:pan-y}
-.manufacturer-viewport{height:490px;min-width:0;overflow:hidden;position:relative;perspective:1400px;perspective-origin:50% 44%;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.manufacturer-viewport{height:570px;min-width:0;overflow:visible;position:relative;perspective:1400px;perspective-origin:50% 44%;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .gallery-grid{display:block;position:relative;width:100%;height:100%;margin:0;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.75,.2,1);will-change:transform}
-.gallery-grid .car-card{position:absolute;left:50%;top:50%;width:clamp(230px,29%,350px);height:420px;flex:none;min-width:0;margin:0;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateY(var(--ring-angle,0deg)) translateZ(var(--ring-radius,420px)) scale(var(--ring-scale,1));transform-origin:center;opacity:var(--ring-opacity,1);filter:brightness(var(--ring-brightness,1));transition:transform .8s cubic-bezier(.2,.75,.2,1),opacity .8s,filter .8s,border-color .3s;backface-visibility:hidden}
+.gallery-grid .car-card{position:absolute;left:50%;top:50%;width:clamp(230px,29%,350px);height:460px;box-sizing:border-box;flex:none;min-width:0;margin:0;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateY(var(--ring-angle,0deg)) translateZ(var(--ring-radius,420px)) scale(var(--ring-scale,1));transform-origin:center;opacity:var(--ring-opacity,1);filter:brightness(var(--ring-brightness,1));transition:transform .8s cubic-bezier(.2,.75,.2,1),opacity .8s,filter .8s,border-color .3s;backface-visibility:hidden}
 .gallery-grid .car-card[hidden]{display:none}
 .manufacturer-card{box-shadow:0 22px 65px rgba(0,0,0,.48);background:linear-gradient(155deg,#121720,#080a0e)}
 .manufacturer-card-brand{height:75px;padding:12px}
@@ -317,6 +317,6 @@ body.modal-open{overflow:hidden}
 .carousel-prev{left:10px}.carousel-next{right:10px}
 .carousel-arrow:hover{background:var(--red);border-color:var(--red);transform:scale(1.06)}
 .carousel-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-@media(max-width:1050px){.manufacturer-viewport{height:450px}.gallery-grid .car-card{width:clamp(220px,36%,310px);height:390px}.manufacturer-card-brand{height:68px}.manufacturer-card .car-image{height:155px}.manufacturer-card .card-copy{padding:15px}.manufacturer-card .card-copy h3{font-size:20px}}
-@media(max-width:700px){.manufacturer-carousel{margin-top:22px}.manufacturer-viewport{height:420px;perspective:1050px;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}.gallery-grid .car-card{width:min(76%,290px);height:375px}.manufacturer-card-brand{height:60px}.manufacturer-card .car-image{height:145px}.manufacturer-card .card-copy p{min-height:56px;font-size:11px}.carousel-arrow{top:auto;bottom:0;width:42px;height:38px;font-size:24px}.carousel-prev{left:calc(50% - 52px)}.carousel-next{right:calc(50% - 52px)}}
+@media(max-width:1050px){.manufacturer-viewport{height:520px}.gallery-grid .car-card{width:clamp(220px,36%,310px);height:430px}.manufacturer-card-brand{height:68px}.manufacturer-card .car-image{height:155px}.manufacturer-card .card-copy{padding:15px}.manufacturer-card .card-copy h3{font-size:20px}}
+@media(max-width:700px){.manufacturer-carousel{margin-top:22px}.manufacturer-viewport{height:490px;perspective:1050px;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}.gallery-grid .car-card{width:min(76%,290px);height:400px}.manufacturer-card-brand{height:60px}.manufacturer-card .car-image{height:145px}.manufacturer-card .card-copy p{min-height:56px;font-size:11px}.carousel-arrow{top:auto;bottom:0;width:42px;height:38px;font-size:24px}.carousel-prev{left:calc(50% - 52px)}.carousel-next{right:calc(50% - 52px)}}
 @media(prefers-reduced-motion:reduce){.gallery-grid .car-card,.gallery-grid{transition:none!important}}
