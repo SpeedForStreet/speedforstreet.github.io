@@ -302,19 +302,20 @@ body.modal-open{overflow:hidden}
 
 
 
-/* Center-focused manufacturer carousel: prominent center cover, subdued side covers */
+
+/* Center-focused manufacturer carousel: full cover image, two subdued cards on each side */
 .manufacturer-carousel{position:relative;max-width:1240px;margin:34px auto 0;padding:8px 46px 54px;overflow:hidden}
-.manufacturer-viewport{width:100%;height:clamp(390px,42vw,520px);overflow:hidden;position:relative;touch-action:pan-y;perspective:1200px}
+.manufacturer-viewport{width:100%;height:clamp(410px,43vw,540px);overflow:hidden;position:relative;touch-action:pan-y;perspective:1400px}
 .gallery-grid{display:block;position:relative;width:100%;height:100%;margin:0;padding:0;transform:none!important;will-change:auto}
-.gallery-grid .car-card{display:block;position:absolute;left:50%;top:50%;width:clamp(230px,31%,350px);height:100%;min-width:0;margin:0;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#080a0e;cursor:pointer;transform:translate(calc(-50% + var(--carousel-x,0px)),-50%) scale(var(--carousel-scale,.78));transform-origin:center;opacity:var(--carousel-opacity,.62);filter:brightness(var(--carousel-brightness,.58));box-shadow:0 20px 55px rgba(0,0,0,.45);transition:transform .65s cubic-bezier(.22,.7,.25,1),opacity .65s,filter .65s,border-color .3s;backface-visibility:hidden}
+.gallery-grid .car-card{display:block;position:absolute;left:50%;top:50%;width:clamp(230px,31%,350px);height:100%;min-width:0;margin:0;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#080a0e;cursor:pointer;transform:translate(calc(-50% + var(--carousel-x,0px)),-50%) scale(var(--carousel-scale,.68));transform-origin:center;opacity:var(--carousel-opacity,.42);filter:brightness(var(--carousel-brightness,.42));box-shadow:0 20px 55px rgba(0,0,0,.45);transition:transform .65s cubic-bezier(.22,.7,.25,1),opacity .65s,filter .65s,border-color .3s;backface-visibility:hidden}
 .gallery-grid .car-card.is-center{border-color:rgba(255,255,255,.28);box-shadow:0 28px 75px rgba(0,0,0,.58)}
 .gallery-grid .car-card:hover{border-color:var(--red)}
 .gallery-grid .car-card[hidden]{display:none}
-.manufacturer-cover{display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}
-.manufacturer-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,8,.04) 25%,rgba(3,5,8,.25) 48%,rgba(3,5,8,.96) 100%);pointer-events:none}
+.manufacturer-cover{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#080a0e;pointer-events:none}
+.manufacturer-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,8,.02) 20%,rgba(3,5,8,.12) 44%,rgba(3,5,8,.96) 100%);pointer-events:none}
 .manufacturer-cover-copy{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:28px 25px 25px;text-align:left;color:#fff;pointer-events:none}
 .manufacturer-cover-copy small{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase}
-.manufacturer-cover-copy strong{font:600 clamp(22px,2.2vw,30px)/1.05 Oswald, sans-serif;text-transform:uppercase;text-shadow:0 2px 12px #000}
+.manufacturer-cover-copy strong{font:600 clamp(22px,2.2vw,30px)/1.05 Oswald,sans-serif;text-transform:uppercase;text-shadow:0 2px 12px #000}
 .manufacturer-cover-copy>span{font-size:12px;line-height:1.5;color:#d2d6de;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:100%}
 .manufacturer-cover-copy b{display:inline-flex;align-items:center;gap:15px;margin-top:6px;padding-bottom:7px;border-bottom:2px solid var(--red);font-size:10px;letter-spacing:1.2px;color:#fff}
 .manufacturer-cover-copy b i{font-size:16px;font-style:normal;color:var(--red)}
