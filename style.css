@@ -278,3 +278,5 @@ body.modal-open{overflow:hidden}
 .manufacturer-modal-box .modal-text{max-height:88vh;overflow-y:auto}
 .manufacturer-modal{overflow-y:auto}
 @media(max-width:800px){.manufacturer-logo-panel{min-height:250px;background-size:min(65%,300px)}.manufacturer-logo-panel:after{bottom:14px;font-size:8px}}
+
+.varex-lineup-board{display:block;width:100%;height:auto;margin:0 0 20px;border:1px solid var(--line);background:#080a0e}
