@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t dsc">
+<title id="t">ZENITH — модельный ряд</title><desc id="dsc">Авторский концепт-лист с моделями L5, GT7, Z7, Z9, Z9 Sovereign.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17120a"/><stop offset="1" stop-color="#02070c"/></linearGradient><linearGradient id="tileBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d7b46a" stop-opacity=".21"/><stop offset="1" stop-color="#06101a"/></linearGradient><linearGradient id="heroFade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#03070c"/><stop offset=".6" stop-color="#03070c" stop-opacity=".1"/><stop offset="1" stop-color="#03070c" stop-opacity=".0"/></linearGradient></defs>
+<rect width="1200" height="800" fill="url(#bg)"/>
+<image href="zenith-hero.svg" x="0" y="0" width="1200" height="340" preserveAspectRatio="xMidYMid slice"/>
+<rect width="1200" height="340" fill="url(#heroFade)"/>
+<rect x="0" y="0" width="1200" height="7" fill="#d7b46a"/>
+<image href="zenith-logo.svg" x="28" y="20" width="250" height="93" preserveAspectRatio="xMinYMid meet"/>
+<text x="35" y="139" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3">BEYOND EVERY HORIZON.</text>
+<text x="35" y="171" fill="#d7b46a" font-family="Arial,sans-serif" font-size="11" letter-spacing="3">GRAND TOURING / LUXURY</text>
+<text x="36" y="214" fill="#dce5ec" font-family="Arial,sans-serif" font-size="12" letter-spacing="2">ЛЮКС • GRAND TOURING • ПРЕДСТАВИТЕЛЬСКИЕ АВТОМОБИЛИ</text>
+<rect x="24" y="316" width="1152" height="32" fill="#040b12" stroke="#314b5e"/><path d="M24 316h10v32H24z" fill="#d7b46a"/>
+<text x="48" y="338" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="17" font-weight="800" letter-spacing="2">ZENITH — МОДЕЛЬНЫЙ РЯД</text>
+<g>
+ <rect x="25" y="356" width="217" height="259" rx="5" fill="#050b12" stroke="#355064"/>
+ <rect x="28" y="359" width="211" height="116" fill="url(#tileBg)" opacity=".96"/>
+ <path d="M32 381V470 M49 393V470 M217 375V470 M231 387V470" stroke="#d7b46a" opacity=".24" stroke-width="3"/>
+ <path d="M30 467L237 460" stroke="#d7b46a" opacity=".35"/>
+ <g transform="translate(29,0)">
+ <path d="M44 465 L59 444 Q77 412 67 415 L200 421 Q212 425 224 457 L230 469 L223 482 L205 484 Q200 482 182 482 L89 482 Q81 486 68 484 L43 478 Z" fill="#aeb9c4" stroke="#d6e1ea" stroke-width="1.6" />
+ <path d="M69 422 L82 448 L184 451 L196 427 Z" fill="#071723" stroke="#738999" stroke-width="1"/>
+ <path d="M56 472 L212 472" stroke="#d7b46a" stroke-width="2.8"/>
+ <path d="M47 464l17 -4 M206 464l14 4" stroke="#eef6ff" stroke-width="2"/>
+ <circle cx="82" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="82" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ <circle cx="190" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="190" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ </g>
+ <rect x="28" y="508" width="211" height="103" fill="#07101a" opacity=".92"/>
+ </g><text x="38" y="544" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="23" font-weight="800" letter-spacing="1">L5</text>
+   <text x="38" y="567" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".8">L-SERIES</text>
+   <text x="38" y="587" fill="#d6e0e8" font-family="Arial,sans-serif" font-size="11">2.5 Turbo • 280 л.с. • AWD • 8AT</text>
+   <text x="38" y="605" fill="#8fa5b7" font-family="Arial,sans-serif" font-size="10">Представительский седан с тихим са</text><g>
+ <rect x="256" y="356" width="217" height="259" rx="5" fill="#050b12" stroke="#355064"/>
+ <rect x="259" y="359" width="211" height="116" fill="url(#tileBg)" opacity=".96"/>
+ <path d="M263 381V470 M280 393V470 M448 375V470 M462 387V470" stroke="#d7b46a" opacity=".24" stroke-width="3"/>
+ <path d="M261 467L468 460" stroke="#d7b46a" opacity=".35"/>
+ <g transform="translate(260,0)">
+ <path d="M275 465 L290 444 Q308 395 290 398 L431 404 Q443 408 455 457 L461 469 L454 482 L436 484 Q431 482 413 482 L320 482 Q312 486 299 484 L274 478 Z" fill="#d7b46a" stroke="#d6e1ea" stroke-width="1.6" />
+ <path d="M292 405 L305 448 L415 451 L427 410 Z" fill="#071723" stroke="#738999" stroke-width="1"/>
+ <path d="M287 472 L443 472" stroke="#d7b46a" stroke-width="2.8"/>
+ <path d="M278 464l17 -4 M437 464l14 4" stroke="#eef6ff" stroke-width="2"/>
+ <circle cx="313" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="313" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ <circle cx="421" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="421" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ </g>
+ <rect x="259" y="508" width="211" height="103" fill="#07101a" opacity=".92"/>
+ </g><text x="269" y="544" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="23" font-weight="800" letter-spacing="1">GT7</text>
+   <text x="269" y="567" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".8">GT-SERIES</text>
+   <text x="269" y="587" fill="#d6e0e8" font-family="Arial,sans-serif" font-size="11">3.0 Twin-Turbo • 420 л.с. • AWD • 8AT</text>
+   <text x="269" y="605" fill="#8fa5b7" font-family="Arial,sans-serif" font-size="10">Быстрое купе для дальних маршрутов</text><g>
+ <rect x="487" y="356" width="217" height="259" rx="5" fill="#050b12" stroke="#355064"/>
+ <rect x="490" y="359" width="211" height="116" fill="url(#tileBg)" opacity=".96"/>
+ <path d="M494 381V470 M511 393V470 M679 375V470 M693 387V470" stroke="#d7b46a" opacity=".24" stroke-width="3"/>
+ <path d="M492 467L699 460" stroke="#d7b46a" opacity=".35"/>
+ <g transform="translate(491,0)">
+ <path d="M506 461 L521 440 Q539 390 521 393 L662 399 Q674 403 686 453 L692 465 L685 478 L667 480 Q662 482 644 482 L551 482 Q543 482 530 480 L505 474 Z" fill="#181e27" stroke="#d6e1ea" stroke-width="1.6" />
+ <path d="M523 400 L536 444 L646 447 L658 405 Z" fill="#071723" stroke="#738999" stroke-width="1"/>
+ <path d="M518 468 L674 468" stroke="#d7b46a" stroke-width="2.8"/>
+ <path d="M509 460l17 -4 M668 460l14 4" stroke="#eef6ff" stroke-width="2"/>
+ <circle cx="544" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="544" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ <circle cx="652" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="652" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ </g>
+ <rect x="490" y="508" width="211" height="103" fill="#07101a" opacity=".92"/>
+ </g><text x="500" y="544" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="23" font-weight="800" letter-spacing="1">Z7</text>
+   <text x="500" y="567" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".8">Z-SERIES</text>
+   <text x="500" y="587" fill="#d6e0e8" font-family="Arial,sans-serif" font-size="11">4.0 V8 Twin-Turbo • 560 л.с. • AWD • 8AT</text>
+   <text x="500" y="605" fill="#8fa5b7" font-family="Arial,sans-serif" font-size="10">Спортивный гран-турер, который соч</text><g>
+ <rect x="718" y="356" width="217" height="259" rx="5" fill="#050b12" stroke="#355064"/>
+ <rect x="721" y="359" width="211" height="116" fill="url(#tileBg)" opacity=".96"/>
+ <path d="M725 381V470 M742 393V470 M910 375V470 M924 387V470" stroke="#d7b46a" opacity=".24" stroke-width="3"/>
+ <path d="M723 467L930 460" stroke="#d7b46a" opacity=".35"/>
+ <g transform="translate(722,0)">
+ <path d="M737 465 L752 444 Q770 406 752 409 L901 415 Q905 419 917 457 L923 469 L916 482 L898 484 Q893 482 875 482 L782 482 Q774 486 761 484 L736 478 Z" fill="#1e69b7" stroke="#d6e1ea" stroke-width="1.6" />
+ <path d="M754 416 L767 448 L885 451 L897 421 Z" fill="#071723" stroke="#738999" stroke-width="1"/>
+ <path d="M749 472 L905 472" stroke="#d7b46a" stroke-width="2.8"/>
+ <path d="M740 464l17 -4 M899 464l14 4" stroke="#eef6ff" stroke-width="2"/>
+ <circle cx="775" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="775" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ <circle cx="883" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="883" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ </g>
+ <rect x="721" y="508" width="211" height="103" fill="#07101a" opacity=".92"/>
+ </g><text x="731" y="544" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="23" font-weight="800" letter-spacing="1">Z9</text>
+   <text x="731" y="567" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".8">Z-SERIES</text>
+   <text x="731" y="587" fill="#d6e0e8" font-family="Arial,sans-serif" font-size="11">6.0 V12 Twin-Turbo • 720 л.с. • AWD • 8AT</text>
+   <text x="731" y="605" fill="#8fa5b7" font-family="Arial,sans-serif" font-size="10">Флагманское купе с длинным капотом</text><g>
+ <rect x="949" y="356" width="217" height="259" rx="5" fill="#050b12" stroke="#355064"/>
+ <rect x="952" y="359" width="211" height="116" fill="url(#tileBg)" opacity=".96"/>
+ <path d="M956 381V470 M973 393V470 M1141 375V470 M1155 387V470" stroke="#d7b46a" opacity=".24" stroke-width="3"/>
+ <path d="M954 467L1161 460" stroke="#d7b46a" opacity=".35"/>
+ <g transform="translate(953,0)">
+ <path d="M968 465 L983 444 Q1001 399 983 402 L1124 408 Q1136 412 1148 457 L1154 469 L1147 482 L1129 484 Q1124 482 1106 482 L1013 482 Q1005 486 992 484 L967 478 Z" fill="#b69a63" stroke="#d6e1ea" stroke-width="1.6" />
+ <path d="M985 409 L998 448 L1108 451 L1120 414 Z" fill="#071723" stroke="#738999" stroke-width="1"/>
+ <path d="M980 472 L1136 472" stroke="#d7b46a" stroke-width="2.8"/>
+ <path d="M971 464l17 -4 M1130 464l14 4" stroke="#eef6ff" stroke-width="2"/>
+ <circle cx="1006" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="1006" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ <circle cx="1114" cy="485" r="16" fill="#020509" stroke="#7a8b99" stroke-width="3"/><circle cx="1114" cy="485" r="7" fill="#182732" stroke="#d7b46a" stroke-width="2"/>
+ </g>
+ <rect x="952" y="508" width="211" height="103" fill="#07101a" opacity=".92"/>
+ </g><text x="962" y="544" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="23" font-weight="800" letter-spacing="1">Z9 Sovereign</text>
+   <text x="962" y="567" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".8">Z9</text>
+   <text x="962" y="587" fill="#d6e0e8" font-family="Arial,sans-serif" font-size="11">760 л.с. • AWD • Bespoke Edition</text>
+   <text x="962" y="605" fill="#8fa5b7" font-family="Arial,sans-serif" font-size="10">Эксклюзивная версия с индивидуальн</text>
+<rect x="24" y="628" width="1152" height="1" fill="#d7b46a" opacity=".55"/>
+<text x="26" y="642" fill="#ecf2f7" font-family="Arial,sans-serif" font-size="10" letter-spacing="2">TECHNOLOGY / ENGINEERING / IDENTITY</text>
+<g><rect x="26" y="650" width="370" height="105" rx="6" fill="#050d15" stroke="#2c4658"/><rect x="26" y="650" width="4" height="105" fill="#d7b46a"/><text x="44" y="679" fill="#d7b46a" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">01 / TECHNOLOGY</text><text x="44" y="705" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="17" font-weight="800">QuietSphere</text><text x="44" y="727" fill="#a8bbc9" font-family="Arial,sans-serif" font-size="11">Активное снижение шума и вибраций в салоне.</text></g><g><rect x="416" y="650" width="370" height="105" rx="6" fill="#050d15" stroke="#2c4658"/><rect x="416" y="650" width="4" height="105" fill="#d7b46a"/><text x="434" y="679" fill="#d7b46a" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">02 / TECHNOLOGY</text><text x="434" y="705" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="17" font-weight="800">Adaptive Ride</text><text x="434" y="727" fill="#a8bbc9" font-family="Arial,sans-serif" font-size="11">Подвеска меняет характер от комфортного до спортивного.</text></g><g><rect x="806" y="650" width="370" height="105" rx="6" fill="#050d15" stroke="#2c4658"/><rect x="806" y="650" width="4" height="105" fill="#d7b46a"/><text x="824" y="679" fill="#d7b46a" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">03 / TECHNOLOGY</text><text x="824" y="705" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="17" font-weight="800">Bespoke Atelier</text><text x="824" y="727" fill="#a8bbc9" font-family="Arial,sans-serif" font-size="11">Индивидуальные материалы, цвета и отделка.</text></g>
+<path d="M24 775H1176" stroke="#d7b46a" stroke-width="2"/><text x="28" y="792" fill="#9cafbd" font-family="Arial,sans-serif" font-size="10" letter-spacing="3">ZENITH AUTOMOTIVE / SPEED FOR STREET</text><text x="1173" y="792" text-anchor="end" fill="#d7b46a" font-family="Arial,sans-serif" font-size="10" letter-spacing="3">CONCEPT LINEUP</text>
+</svg>
