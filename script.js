@@ -69,14 +69,14 @@ function renderSiteCars(list){
   extra.innerHTML=
    section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${esc(h.year)}</b><div><strong>${esc(h.title)}</strong><p>${esc(h.text)}</p></div></article>`).join('')}</div>`)+
    section('СТРУКТУРА КОНЦЕРНА',cards(d.divisions))+
-   section('МОДЕЛЬНЫЙ РЯД',`${d.lineupImage?'<img class="varex-lineup-board" src="'+esc(d.lineupImage)+'" alt="Концепт-лист модельного ряда '+esc(d.fullName||d.title)+'">':''}<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${esc(x.series)}</small><h4>${esc(x.name)}</h4><b>${esc(x.spec)}</b><p>${esc(x.text)}</p></article>`).join('')}</div>`)+
+   section('МОДЕЛЬНЫЙ РЯД',`${d.lineupImage?'<img class="manufacturer-lineup-board" src="'+esc(d.lineupImage)+'" alt="Концепт-лист модельного ряда '+esc(d.fullName||d.title)+'">':''}<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${esc(x.series)}</small><h4>${esc(x.name)}</h4><b>${esc(x.spec)}</b><p>${esc(x.text)}</p></article>`).join('')}</div>`)+
    section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',cards(d.technologies))+
    section('ФИРМЕННЫЙ СТИЛЬ',cards(d.brandIdentity))+
    section('ПРОИЗВОДСТВО И ИСПЫТАНИЯ',cards(d.production))+
    section('АВТОСПОРТ',cards(d.motorsport))+
    section(`${esc(d.title||d.fullName)} В МИРЕ SPEEDFORSTREET`,cards(d.world))+
    section('РАЗРАБОТКА АВТОМОБИЛЯ',`<p>${esc(d.development?.description||'')}</p><div class="manufacturer-subgrid">${(d.development?.stages||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`);
-  const lineup=extra.querySelector('.varex-lineup-board');
+  const lineup=extra.querySelector('.manufacturer-lineup-board');
   if(lineup){
    lineup.tabIndex=0;lineup.setAttribute('role','button');lineup.setAttribute('aria-label','Открыть изображение модельного ряда в большом масштабе');lineup.title='Нажмите, чтобы увеличить';
    const openLineupZoom=()=>{
