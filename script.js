@@ -97,71 +97,88 @@ function renderSiteCars(list){
 }
 
 
-// Infinite manufacturer carousel: rotate real cards so every card remains clickable.
+// Interactive 3D manufacturer ring: drag, wheel, arrows and automatic rotation.
 let manufacturerCarouselTimer=null;
-let manufacturerCarouselBusy=false;
+let manufacturerRingIndex=0;
+let manufacturerRingBusy=false;
+let manufacturerDragStart=null;
+let manufacturerLastDrag=0;
 function visibleManufacturerCards(){
  const track=$('.gallery-grid');
  return track?[...track.querySelectorAll('.manufacturer-card')].filter(card=>!card.hidden):[];
 }
-function manufacturerStep(){
- const track=$('.gallery-grid'),card=visibleManufacturerCards()[0];
- if(!track||!card)return 0;
- const gap=parseFloat(getComputedStyle(track).gap)||0;
- return card.getBoundingClientRect().width+gap;
-}
 function refreshManufacturerCarousel(reset=false){
- const track=$('.gallery-grid');
- if(!track)return;
- if(reset){track.style.transition='none';track.style.transform='translateX(0)';manufacturerCarouselBusy=false;}
- const visible=visibleManufacturerCards();
+ const track=$('.gallery-grid'),root=$('.manufacturer-carousel');
+ if(!track||!root)return;
+ const cards=visibleManufacturerCards();
+ if(reset)manufacturerRingIndex=0;
+ if(cards.length)manufacturerRingIndex=((manufacturerRingIndex%cards.length)+cards.length)%cards.length;
+ const radius=Math.min(450,Math.max(270,root.clientWidth*.39));
+ const step=360/Math.max(cards.length,1);
+ cards.forEach((card,i)=>{
+  const offset=((i-manufacturerRingIndex+cards.length*2)%cards.length);
+  const angle=offset>cards.length/2?offset-cards.length:offset;
+  const abs=Math.abs(angle);
+  card.style.setProperty('--ring-angle',(angle*step)+'deg');
+  card.style.setProperty('--ring-radius',radius+'px');
+  card.style.setProperty('--ring-scale',String(Math.max(.72,1-abs*.075)));
+  card.style.setProperty('--ring-opacity',String(Math.max(.28,1-abs*.22)));
+  card.style.setProperty('--ring-brightness',String(Math.max(.42,1-abs*.16)));
+  card.style.zIndex=String(100-abs);
+  card.setAttribute('aria-current',angle===0?'true':'false');
+ });
  const prev=$('.carousel-prev'),next=$('.carousel-next');
- const enough=visible.length>1;
- if(prev)prev.disabled=!enough;
- if(next)next.disabled=!enough;
+ if(prev)prev.disabled=cards.length<2;
+ if(next)next.disabled=cards.length<2;
+ track.style.transform='translateZ(0)';
 }
 function moveManufacturerCarousel(direction=1){
- const track=$('.gallery-grid');
- const visible=visibleManufacturerCards();
- if(!track||visible.length<2||manufacturerCarouselBusy)return;
- const step=manufacturerStep();
- if(!step)return;
- manufacturerCarouselBusy=true;
- if(direction>0){
-  track.style.transition='transform .45s ease';
-  track.style.transform='translateX('+(-step)+'px)';
-  const finish=()=>{
-   const first=visibleManufacturerCards()[0];
-   if(first)track.appendChild(first);
-   track.style.transition='none';track.style.transform='translateX(0)';
-   void track.offsetWidth;
-   track.style.transition='transform .45s ease';
-   manufacturerCarouselBusy=false;
-  };
-  track.addEventListener('transitionend',function onEnd(e){if(e.target!==track)return;track.removeEventListener('transitionend',onEnd);finish();},{once:true});
-  setTimeout(()=>{if(manufacturerCarouselBusy){const first=visibleManufacturerCards()[0];if(first)track.appendChild(first);track.style.transition='none';track.style.transform='translateX(0)';manufacturerCarouselBusy=false;}},550);
- }else{
-  track.style.transition='none';track.style.transform='translateX('+(-step)+'px)';
-  const last=visible[visible.length-1];track.insertBefore(last,track.firstChild);
-  void track.offsetWidth;
-  track.style.transition='transform .45s ease';track.style.transform='translateX(0)';
-  setTimeout(()=>{manufacturerCarouselBusy=false;},470);
- }
+ const cards=visibleManufacturerCards();
+ if(cards.length<2)return;
+ manufacturerRingIndex=(manufacturerRingIndex+direction+cards.length)%cards.length;
+ refreshManufacturerCarousel(false);
+}
+function startManufacturerAutoplay(){
+ if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
+ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  manufacturerCarouselTimer=setInterval(()=>moveManufacturerCarousel(1),3800);
 }
 function initManufacturerCarousel(){
- const root=$('.manufacturer-carousel');
- if(!root)return;
+ const root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport');
+ if(!root||!viewport)return;
  $('.carousel-prev',root)?.addEventListener('click',()=>moveManufacturerCarousel(-1));
  $('.carousel-next',root)?.addEventListener('click',()=>moveManufacturerCarousel(1));
+ viewport.addEventListener('pointerdown',e=>{
+  if(e.target.closest('button'))return;
+  manufacturerDragStart={x:e.clientX,y:e.clientY,id:e.pointerId};
+  manufacturerLastDrag=0;
+  viewport.setPointerCapture?.(e.pointerId);
+  if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
+ });
+ viewport.addEventListener('pointermove',e=>{
+  if(!manufacturerDragStart||manufacturerDragStart.id!==e.pointerId)return;
+  const dx=e.clientX-manufacturerDragStart.x;
+  if(Math.abs(dx)>24&&Math.abs(dx)>Math.abs(e.clientY-(manufacturerDragStart.y||e.clientY))){
+   manufacturerLastDrag=dx;
+  }
+ });
+ const endDrag=e=>{
+  if(!manufacturerDragStart)return;
+  const dx=manufacturerLastDrag||e.clientX-manufacturerDragStart.x;
+  if(Math.abs(dx)>35)moveManufacturerCarousel(dx<0?1:-1);
+  manufacturerDragStart=null;manufacturerLastDrag=0;startManufacturerAutoplay();
+ };
+ viewport.addEventListener('pointerup',endDrag);
+ viewport.addEventListener('pointercancel',endDrag);
+ viewport.addEventListener('wheel',e=>{
+  if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();moveManufacturerCarousel(e.deltaX>0?1:-1);}
+ },{passive:false});
  root.addEventListener('mouseenter',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
  root.addEventListener('mouseleave',startManufacturerAutoplay);
  root.addEventListener('focusin',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
  root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))startManufacturerAutoplay();});
- startManufacturerAutoplay();
-}
-function startManufacturerAutoplay(){
- if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
- manufacturerCarouselTimer=setInterval(()=>moveManufacturerCarousel(1),4500);
+ window.addEventListener('resize',()=>refreshManufacturerCarousel(false));
+ refreshManufacturerCarousel(true);startManufacturerAutoplay();
 }
 initManufacturerCarousel();
 
