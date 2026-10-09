@@ -295,3 +295,20 @@ body.modal-open{overflow:hidden}
 .manufacturer-card[data-manufacturer="varex"] .car-image{height:auto;aspect-ratio:3/2}
 .manufacturer-card[data-manufacturer="varex"] .car-image img{height:100%;object-fit:contain;object-position:center}
 
+
+
+/* Full-bleed ticker: stretch from edge to edge of the viewport */
+.marquee{width:100vw;max-width:100vw;position:relative;left:50%;margin-left:-50vw}
+
+/* Manufacturer carousel: three cards per view, continuously cycling */
+.manufacturer-carousel{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;align-items:center;gap:14px;margin-top:34px}
+.manufacturer-viewport{min-width:0;overflow:hidden}
+.gallery-grid{display:flex;gap:14px;grid-template-columns:none;margin-top:0;transition:transform .45s ease;will-change:transform}
+.gallery-grid .car-card{flex:0 0 calc((100% - 28px)/3);min-width:0}
+.carousel-arrow{height:46px;width:42px;display:grid;place-items:center;border:1px solid var(--line);background:#10141b;color:#fff;font-size:30px;line-height:1;cursor:pointer;transition:background .2s,border-color .2s}
+.carousel-arrow:hover{background:var(--red);border-color:var(--red)}
+.carousel-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.gallery-grid .car-card[hidden]{display:none}
+@media(max-width:1050px){.manufacturer-carousel{grid-template-columns:36px minmax(0,1fr) 36px;gap:9px}.gallery-grid .car-card{flex-basis:calc((100% - 14px)/2)}}
+@media(max-width:700px){.manufacturer-carousel{grid-template-columns:30px minmax(0,1fr) 30px;gap:7px;margin-top:26px}.carousel-arrow{width:30px;height:40px;font-size:25px}.gallery-grid .car-card{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.gallery-grid{transition:none}.marquee div{animation-duration:60s}}
