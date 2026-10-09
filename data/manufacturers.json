@@ -209,7 +209,8 @@
           "text": "Модель готовится к физике, повреждениям, настройке и тюнингу."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/varex-prototype-lineup.png"
   },
   {
     "id": "kairo",
@@ -410,7 +411,8 @@
           "text": "Подготовка материалов, физики, тюнинга и игровых настроек."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/kairo-prototype-lineup.jpg"
   },
   {
     "id": "street",
@@ -572,7 +574,8 @@
           "text": "Поддержка обвесов, колёс и индивидуальных настроек."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/street-prototype-lineup.svg"
   },
   {
     "id": "track",
@@ -734,7 +737,8 @@
           "text": "Подготовка дорожной и гоночной конфигураций."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/track-prototype-lineup.svg"
   },
   {
     "id": "volterra",
@@ -896,7 +900,8 @@
           "text": "Испытания мощности и охлаждения под нагрузкой."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/volterra-prototype-lineup.svg"
   },
   {
     "id": "zenith",
@@ -1058,6 +1063,7 @@
           "text": "Длительные скоростные испытания."
         }
       ]
-    }
+    },
+    "lineupImage": "assets/zenith-prototype-lineup.svg"
   }
 ]
