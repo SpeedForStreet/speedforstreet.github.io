@@ -2,7 +2,7 @@ const $ = (s,root=document)=>root.querySelector(s);
 const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
 
 // Smooth navigation
-$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=$(a.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});$('.mobile-menu')?.classList.remove('open');}}));
+$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const href=a.getAttribute('href');if(!href||href==='#')return;let target=null;try{target=$(href)}catch(err){return}if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});$('.mobile-menu')?.classList.remove('open');}}));
 
 // Mobile menu
 const menuBtn=$('.menu-btn'), mobileMenu=$('.mobile-menu');
@@ -191,10 +191,9 @@ function renderSiteNews(list){
   list=list.filter(n=>n.published!==false);
   grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url('${n.image||''}')"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><div class="news-short">${n.shortDescription||n.text||''}</div><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
   grid.querySelectorAll('.news-card').forEach(card=>{
-    card.addEventListener('click',e=>{
-      if(e.target.closest('a')){e.preventDefault();}
-      const item=list.find(n=>n.id===card.dataset.newsId); if(item)openNewsModal(item);
-    });
+    const open=()=>{const item=list.find(n=>String(n.id)===card.dataset.newsId);if(item)openNewsModal(item);};
+    card.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault();open();});
+    card.querySelector('.news-read-more')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();open();});
   });
 }
 function openNewsModal(n){
@@ -206,11 +205,12 @@ function openNewsModal(n){
   $('#newsModalImg').style.backgroundImage=n.image?"url('"+n.image+"')":'none';
   $('#newsModal').classList.add('open');
   $('#newsModal').setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
   $('#newsModal').scrollTop=0;
   const box=$('.news-modal-box'); if(box)box.scrollIntoView({block:'start',behavior:'auto'});
   updateNewsReactions(n.id);
 }
-function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');}
+function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');}
 function reactionKey(id){return 'ssf_news_reactions_'+id}
 function getNewsReactions(id){try{return JSON.parse(localStorage.getItem(reactionKey(id))||'{"like":0,"dislike":0,"vote":""}')}catch(e){return {like:0,dislike:0,vote:''}}}
 function updateNewsReactions(id){
