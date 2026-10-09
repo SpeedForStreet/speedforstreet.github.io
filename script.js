@@ -97,79 +97,89 @@ function renderSiteCars(list){
 }
 
 
-// Interactive 3D manufacturer ring: drag, wheel, arrows and automatic rotation.
+// Responsive image-only manufacturer carousel with swipe, arrows, dots and autoplay.
 let manufacturerCarouselTimer=null;
 let manufacturerRingIndex=0;
-let manufacturerRingBusy=false;
 let manufacturerDragStart=null;
 let manufacturerLastDrag=0;
+let manufacturerDragged=false;
 function visibleManufacturerCards(){
  const track=$('.gallery-grid');
  return track?[...track.querySelectorAll('.manufacturer-card')].filter(card=>!card.hidden):[];
 }
+function manufacturerVisibleCount(){
+ if(window.matchMedia('(max-width: 600px)').matches)return 1;
+ if(window.matchMedia('(max-width: 1050px)').matches)return 2;
+ return 3;
+}
 function refreshManufacturerCarousel(reset=false){
- const track=$('.gallery-grid'),root=$('.manufacturer-carousel');
- if(!track||!root)return;
+ const track=$('.gallery-grid'),root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport');
+ if(!track||!root||!viewport)return;
  const cards=visibleManufacturerCards();
+ const visible=manufacturerVisibleCount();
+ const maxIndex=Math.max(0,cards.length-visible);
  if(reset)manufacturerRingIndex=0;
- if(cards.length)manufacturerRingIndex=((manufacturerRingIndex%cards.length)+cards.length)%cards.length;
- const radius=Math.min(450,Math.max(270,root.clientWidth*.39));
- const step=360/Math.max(cards.length,1);
- cards.forEach((card,i)=>{
-  const offset=((i-manufacturerRingIndex+cards.length*2)%cards.length);
-  const angle=offset>cards.length/2?offset-cards.length:offset;
-  const abs=Math.abs(angle);
-  card.style.setProperty('--ring-angle',(angle*step)+'deg');
-  card.style.setProperty('--ring-radius',radius+'px');
-  card.style.setProperty('--ring-scale',String(Math.max(.72,1-abs*.075)));
-  card.style.setProperty('--ring-opacity',String(Math.max(.28,1-abs*.22)));
-  card.style.setProperty('--ring-brightness',String(Math.max(.42,1-abs*.16)));
-  card.style.zIndex=String(100-abs);
-  card.setAttribute('aria-current',angle===0?'true':'false');
- });
- const prev=$('.carousel-prev'),next=$('.carousel-next');
- if(prev)prev.disabled=cards.length<2;
- if(next)next.disabled=cards.length<2;
- track.style.transform='translateZ(0)';
+ manufacturerRingIndex=Math.min(manufacturerRingIndex,maxIndex);
+ const first=cards[0];
+ const gap=parseFloat(getComputedStyle(track).gap)||0;
+ const cardWidth=first?first.getBoundingClientRect().width:0;
+ track.style.transform='translate3d('+(-manufacturerRingIndex*(cardWidth+gap))+'px,0,0)';
+ const prev=$('.carousel-prev',root),next=$('.carousel-next',root);
+ if(prev)prev.disabled=cards.length<=visible;
+ if(next)next.disabled=cards.length<=visible;
+ let dots=$('.carousel-pagination',root);
+ if(!dots){dots=document.createElement('div');dots.className='carousel-pagination';dots.setAttribute('aria-label','Позиция карусели');root.appendChild(dots);}
+ const dotCount=maxIndex+1;
+ if(dots.children.length!==dotCount){
+  dots.innerHTML=Array.from({length:dotCount},(_,i)=>'<button type="button" class="carousel-dot" aria-label="Позиция '+(i+1)+'"></button>').join('');
+  [...dots.children].forEach((dot,i)=>dot.addEventListener('click',()=>{manufacturerRingIndex=i;refreshManufacturerCarousel();}));
+ }
+ [...dots.children].forEach((dot,i)=>dot.setAttribute('aria-current',i===manufacturerRingIndex?'true':'false'));
+ dots.hidden=dotCount<2;
 }
 function moveManufacturerCarousel(direction=1){
  const cards=visibleManufacturerCards();
- if(cards.length<2)return;
- manufacturerRingIndex=(manufacturerRingIndex+direction+cards.length)%cards.length;
+ const maxIndex=Math.max(0,cards.length-manufacturerVisibleCount());
+ if(maxIndex<1)return;
+ manufacturerRingIndex=(manufacturerRingIndex+direction+maxIndex+1)%(maxIndex+1);
  refreshManufacturerCarousel(false);
 }
 function startManufacturerAutoplay(){
  if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  manufacturerCarouselTimer=setInterval(()=>moveManufacturerCarousel(1),3800);
+  manufacturerCarouselTimer=setInterval(()=>moveManufacturerCarousel(1),4200);
 }
 function initManufacturerCarousel(){
- const root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport');
- if(!root||!viewport)return;
+ const root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport'),track=$('.gallery-grid');
+ if(!root||!viewport||!track)return;
  $('.carousel-prev',root)?.addEventListener('click',()=>moveManufacturerCarousel(-1));
  $('.carousel-next',root)?.addEventListener('click',()=>moveManufacturerCarousel(1));
  viewport.addEventListener('pointerdown',e=>{
-  if(e.target.closest('button'))return;
   manufacturerDragStart={x:e.clientX,y:e.clientY,id:e.pointerId};
-  manufacturerLastDrag=0;
-  viewport.setPointerCapture?.(e.pointerId);
+  manufacturerLastDrag=0;manufacturerDragged=false;
   if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
  });
  viewport.addEventListener('pointermove',e=>{
   if(!manufacturerDragStart||manufacturerDragStart.id!==e.pointerId)return;
   const dx=e.clientX-manufacturerDragStart.x;
-  if(Math.abs(dx)>24&&Math.abs(dx)>Math.abs(e.clientY-(manufacturerDragStart.y||e.clientY))){
-   manufacturerLastDrag=dx;
+  if(Math.abs(dx)>18&&Math.abs(dx)>Math.abs(e.clientY-manufacturerDragStart.y)){
+   manufacturerLastDrag=dx;manufacturerDragged=true;
   }
  });
  const endDrag=e=>{
   if(!manufacturerDragStart)return;
-  const dx=manufacturerLastDrag||e.clientX-manufacturerDragStart.x;
-  if(Math.abs(dx)>35)moveManufacturerCarousel(dx<0?1:-1);
+  if(manufacturerDragged){
+   if(e.cancelable)e.preventDefault();
+   moveManufacturerCarousel(manufacturerLastDrag<0?1:-1);
+   setTimeout(()=>{manufacturerDragged=false;},0);
+  }
   manufacturerDragStart=null;manufacturerLastDrag=0;startManufacturerAutoplay();
  };
  viewport.addEventListener('pointerup',endDrag);
  viewport.addEventListener('pointercancel',endDrag);
+ track.addEventListener('click',e=>{
+  if(manufacturerDragged){e.preventDefault();e.stopPropagation();}
+ },true);
  viewport.addEventListener('wheel',e=>{
   if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();moveManufacturerCarousel(e.deltaX>0?1:-1);}
  },{passive:false});
