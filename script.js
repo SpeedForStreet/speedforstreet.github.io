@@ -60,10 +60,22 @@ function renderSiteCars(list){
   const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
   $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
   $('#modalFounded').textContent=d.founded||'—';$('#modalFocus').textContent=d.focus||'—';$('#modalTune').textContent=d.philosophy||d.tagline||'—';
-  $('#modalImg').style.backgroundImage=`url("${d.image||''}")`;
-  const escHtml=esc, extra=$('#manufacturerExtra');
+  const left=$('#modalImg');
+  left.style.backgroundImage=`url("${d.logo||'assets/varex-logo.svg'}")`;
+  left.classList.add('manufacturer-logo-panel');
+  const extra=$('#manufacturerExtra');
   const section=(title,body)=>`<section class="manufacturer-detail-section"><h3>${title}</h3>${body}</section>`;
-  extra.innerHTML=section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${escHtml(h.year)}</b><div><strong>${escHtml(h.title)}</strong><p>${escHtml(h.text)}</p></div></article>`).join('')}</div>`)+section('СТРУКТУРА КОНЦЕРНА',`<div class="manufacturer-subgrid">${(d.divisions||[]).map(x=>`<article><strong>${escHtml(x.name)}</strong><p>${escHtml(x.text)}</p></article>`).join('')}</div>`)+section('МОДЕЛЬНЫЙ РЯД',`<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${escHtml(x.series)}</small><h4>${escHtml(x.name)}</h4><b>${escHtml(x.spec)}</b><p>${escHtml(x.text)}</p></article>`).join('')}</div>`)+section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',`<div class="manufacturer-subgrid">${(d.technologies||[]).map(x=>`<article><strong>${escHtml(x.name)}</strong><p>${escHtml(x.text)}</p></article>`).join('')}</div>`);
+  const cards=(arr)=>`<div class="manufacturer-subgrid">${(arr||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`;
+  extra.innerHTML=
+   section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${esc(h.year)}</b><div><strong>${esc(h.title)}</strong><p>${esc(h.text)}</p></div></article>`).join('')}</div>`)+
+   section('СТРУКТУРА КОНЦЕРНА',cards(d.divisions))+
+   section('МОДЕЛЬНЫЙ РЯД',`<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${esc(x.series)}</small><h4>${esc(x.name)}</h4><b>${esc(x.spec)}</b><p>${esc(x.text)}</p></article>`).join('')}</div>`)+
+   section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',cards(d.technologies))+
+   section('ФИРМЕННЫЙ СТИЛЬ',cards(d.brandIdentity))+
+   section('ПРОИЗВОДСТВО И ИСПЫТАНИЯ',cards(d.production))+
+   section('АВТОСПОРТ',cards(d.motorsport))+
+   section('VAREX В МИРЕ SPEEDFORSTREET',cards(d.world))+
+   section('РАЗРАБОТКА АВТОМОБИЛЯ',`<p>${esc(d.development?.description||'')}</p><div class="manufacturer-subgrid">${(d.development?.stages||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`);
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
  }));
  $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));});
