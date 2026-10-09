@@ -280,3 +280,12 @@ body.modal-open{overflow:hidden}
 @media(max-width:800px){.manufacturer-logo-panel{min-height:250px;background-size:min(65%,300px)}.manufacturer-logo-panel:after{bottom:14px;font-size:8px}}
 
 .varex-lineup-board{display:block;width:100%;height:auto;margin:0 0 20px;border:1px solid var(--line);background:#080a0e}
+
+/* Click-to-zoom for manufacturer lineup boards */
+.varex-lineup-board{cursor:zoom-in;transition:filter .18s ease, border-color .18s ease}
+.varex-lineup-board:hover,.varex-lineup-board:focus-visible{filter:brightness(1.08);border-color:var(--red);outline:none}
+.lineup-lightbox{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;padding:54px 20px 48px;cursor:zoom-out}
+.lineup-lightbox img{display:block;max-width:96vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border:1px solid #343943;box-shadow:0 16px 70px rgba(0,0,0,.55);cursor:default}
+.lineup-lightbox-close{position:absolute;top:14px;right:20px;width:48px;height:48px;border:1px solid #646a74;border-radius:50%;background:#11151b;color:#fff;font-size:34px;line-height:1;cursor:pointer}
+.lineup-lightbox-hint{position:absolute;bottom:16px;left:12px;right:12px;text-align:center;color:#b8bec8;font-size:12px;letter-spacing:.5px}
+@media(max-width:600px){.lineup-lightbox{padding:58px 8px 48px}.lineup-lightbox img{max-width:98vw;max-height:84vh}.lineup-lightbox-close{top:8px;right:10px}}
