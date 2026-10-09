@@ -55,7 +55,7 @@ async function loadSiteData(){
 function renderSiteCars(list){
  const grid=$('.gallery-grid');if(!grid)return;
  const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть бренд ${esc(m.fullName||m.title)}"><img class="manufacturer-cover" src="${esc(m.image||'assets/hero-clean.jpg')}" alt="${esc(m.fullName||m.title)} — обложка бренда" loading="lazy"></button>`).join('');
+ grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть историю бренда ${esc(m.fullName||m.title)}"><img class="manufacturer-cover" src="${esc(m.image||'assets/hero-clean.jpg')}" alt="${esc(m.fullName||m.title)} — обложка бренда" loading="lazy"><span class="manufacturer-cover-shade"></span><span class="manufacturer-cover-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><strong>${esc(m.fullName||m.title)}</strong><span>${esc(m.desc||'')}</span><b>ОТКРЫТЬ ИСТОРИЮ <i>↗</i></b></span></button>`).join('');
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
   const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
   $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
@@ -97,7 +97,7 @@ function renderSiteCars(list){
 }
 
 
-// Responsive image-only manufacturer carousel with swipe, arrows, dots and autoplay.
+// Center-focused cover carousel: center card is prominent, side cards are dimmed.
 let manufacturerCarouselTimer=null;
 let manufacturerRingIndex=0;
 let manufacturerDragStart=null;
@@ -107,41 +107,45 @@ function visibleManufacturerCards(){
  const track=$('.gallery-grid');
  return track?[...track.querySelectorAll('.manufacturer-card')].filter(card=>!card.hidden):[];
 }
-function manufacturerVisibleCount(){
- if(window.matchMedia('(max-width: 600px)').matches)return 1;
- if(window.matchMedia('(max-width: 1050px)').matches)return 2;
- return 3;
-}
 function refreshManufacturerCarousel(reset=false){
  const track=$('.gallery-grid'),root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport');
  if(!track||!root||!viewport)return;
  const cards=visibleManufacturerCards();
- const visible=manufacturerVisibleCount();
- const maxIndex=Math.max(0,cards.length-visible);
  if(reset)manufacturerRingIndex=0;
- manufacturerRingIndex=Math.min(manufacturerRingIndex,maxIndex);
- const first=cards[0];
- const gap=parseFloat(getComputedStyle(track).gap)||0;
- const cardWidth=first?first.getBoundingClientRect().width:0;
- track.style.transform='translate3d('+(-manufacturerRingIndex*(cardWidth+gap))+'px,0,0)';
+ if(cards.length)manufacturerRingIndex=((manufacturerRingIndex%cards.length)+cards.length)%cards.length;
+ const width=viewport.clientWidth;
+ const cardWidth=Math.min(350,Math.max(230,width*.31));
+ const step=cardWidth*.88;
+ cards.forEach((card,i)=>{
+  let offset=i-manufacturerRingIndex;
+  const count=cards.length;
+  if(offset>count/2)offset-=count;
+  if(offset< -count/2)offset+=count;
+  const distance=Math.abs(offset);
+  card.style.setProperty('--carousel-x',(offset*step)+'px');
+  card.style.setProperty('--carousel-scale',distance===0?'1':'0.78');
+  card.style.setProperty('--carousel-opacity',distance===0?'1':distance===1?'.62':'.16');
+  card.style.setProperty('--carousel-brightness',distance===0?'1':distance===1?'.58':'.25');
+  card.style.zIndex=String(100-distance);
+  card.classList.toggle('is-center',distance===0);
+  card.setAttribute('aria-current',distance===0?'true':'false');
+ });
  const prev=$('.carousel-prev',root),next=$('.carousel-next',root);
- if(prev)prev.disabled=cards.length<=visible;
- if(next)next.disabled=cards.length<=visible;
+ if(prev)prev.disabled=cards.length<2;
+ if(next)next.disabled=cards.length<2;
  let dots=$('.carousel-pagination',root);
  if(!dots){dots=document.createElement('div');dots.className='carousel-pagination';dots.setAttribute('aria-label','Позиция карусели');root.appendChild(dots);}
- const dotCount=maxIndex+1;
- if(dots.children.length!==dotCount){
-  dots.innerHTML=Array.from({length:dotCount},(_,i)=>'<button type="button" class="carousel-dot" aria-label="Позиция '+(i+1)+'"></button>').join('');
+ if(dots.children.length!==cards.length){
+  dots.innerHTML=cards.map((_,i)=>'<button type="button" class="carousel-dot" aria-label="Показать производителя '+(i+1)+'"></button>').join('');
   [...dots.children].forEach((dot,i)=>dot.addEventListener('click',()=>{manufacturerRingIndex=i;refreshManufacturerCarousel();}));
  }
  [...dots.children].forEach((dot,i)=>dot.setAttribute('aria-current',i===manufacturerRingIndex?'true':'false'));
- dots.hidden=dotCount<2;
+ dots.hidden=cards.length<2;
 }
 function moveManufacturerCarousel(direction=1){
  const cards=visibleManufacturerCards();
- const maxIndex=Math.max(0,cards.length-manufacturerVisibleCount());
- if(maxIndex<1)return;
- manufacturerRingIndex=(manufacturerRingIndex+direction+maxIndex+1)%(maxIndex+1);
+ if(cards.length<2)return;
+ manufacturerRingIndex=(manufacturerRingIndex+direction+cards.length)%cards.length;
  refreshManufacturerCarousel(false);
 }
 function startManufacturerAutoplay(){
@@ -162,27 +166,16 @@ function initManufacturerCarousel(){
  viewport.addEventListener('pointermove',e=>{
   if(!manufacturerDragStart||manufacturerDragStart.id!==e.pointerId)return;
   const dx=e.clientX-manufacturerDragStart.x;
-  if(Math.abs(dx)>18&&Math.abs(dx)>Math.abs(e.clientY-manufacturerDragStart.y)){
-   manufacturerLastDrag=dx;manufacturerDragged=true;
-  }
+  if(Math.abs(dx)>18&&Math.abs(dx)>Math.abs(e.clientY-manufacturerDragStart.y)){manufacturerLastDrag=dx;manufacturerDragged=true;}
  });
  const endDrag=e=>{
   if(!manufacturerDragStart)return;
-  if(manufacturerDragged){
-   if(e.cancelable)e.preventDefault();
-   moveManufacturerCarousel(manufacturerLastDrag<0?1:-1);
-   setTimeout(()=>{manufacturerDragged=false;},0);
-  }
+  if(manufacturerDragged){if(e.cancelable)e.preventDefault();moveManufacturerCarousel(manufacturerLastDrag<0?1:-1);setTimeout(()=>{manufacturerDragged=false;},0);}
   manufacturerDragStart=null;manufacturerLastDrag=0;startManufacturerAutoplay();
  };
- viewport.addEventListener('pointerup',endDrag);
- viewport.addEventListener('pointercancel',endDrag);
- track.addEventListener('click',e=>{
-  if(manufacturerDragged){e.preventDefault();e.stopPropagation();}
- },true);
- viewport.addEventListener('wheel',e=>{
-  if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();moveManufacturerCarousel(e.deltaX>0?1:-1);}
- },{passive:false});
+ viewport.addEventListener('pointerup',endDrag);viewport.addEventListener('pointercancel',endDrag);
+ track.addEventListener('click',e=>{if(manufacturerDragged){e.preventDefault();e.stopPropagation();}},true);
+ viewport.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();moveManufacturerCarousel(e.deltaX>0?1:-1);}},{passive:false});
  root.addEventListener('mouseenter',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
  root.addEventListener('mouseleave',startManufacturerAutoplay);
  root.addEventListener('focusin',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
