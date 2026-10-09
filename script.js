@@ -115,17 +115,18 @@ function refreshManufacturerCarousel(reset=false){
  if(cards.length)manufacturerRingIndex=((manufacturerRingIndex%cards.length)+cards.length)%cards.length;
  const width=viewport.clientWidth;
  const cardWidth=Math.min(350,Math.max(230,width*.31));
- const step=cardWidth*.88;
+ const step=cardWidth*.82;
  cards.forEach((card,i)=>{
   let offset=i-manufacturerRingIndex;
   const count=cards.length;
   if(offset>count/2)offset-=count;
   if(offset< -count/2)offset+=count;
   const distance=Math.abs(offset);
-  card.style.setProperty('--carousel-x',(offset*step)+'px');
-  card.style.setProperty('--carousel-scale',distance===0?'1':'0.78');
-  card.style.setProperty('--carousel-opacity',distance===0?'1':distance===1?'.62':'.16');
-  card.style.setProperty('--carousel-brightness',distance===0?'1':distance===1?'.58':'.25');
+  const sideStep=cardWidth*.82;
+  card.style.setProperty('--carousel-x',(offset*sideStep)+'px');
+  card.style.setProperty('--carousel-scale',distance===0?'1':distance===1?'.70':distance===2?'.54':'.42');
+  card.style.setProperty('--carousel-opacity',distance===0?'1':distance===1?'.58':distance===2?'.28':'.08');
+  card.style.setProperty('--carousel-brightness',distance===0?'1':distance===1?'.55':distance===2?'.34':'.2');
   card.style.zIndex=String(100-distance);
   card.classList.toggle('is-center',distance===0);
   card.setAttribute('aria-current',distance===0?'true':'false');
