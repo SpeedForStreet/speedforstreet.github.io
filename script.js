@@ -55,7 +55,7 @@ async function loadSiteData(){
 function renderSiteCars(list){
  const grid=$('.gallery-grid');if(!grid)return;
  const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="${esc(m.fullName||m.title)} logo" loading="lazy"></div><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Концепт бренда ${esc(m.title)}" loading="lazy"></div><div class="card-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><h3>${esc(m.fullName||m.title)}</h3><p>${esc(m.desc||'')}</p><b>ИЗУЧИТЬ ИСТОРИЮ И МОДЕЛИ →</b></div></button>`).join('');
+ grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть бренд ${esc(m.fullName||m.title)}"><img class="manufacturer-cover" src="${esc(m.image||'assets/hero-clean.jpg')}" alt="${esc(m.fullName||m.title)} — обложка бренда" loading="lazy"></button>`).join('');
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
   const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
   $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
