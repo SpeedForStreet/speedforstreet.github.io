@@ -575,7 +575,7 @@
         }
       ]
     },
-    "lineupImage": "assets/street-prototype-lineup.svg"
+    "lineupImage": "assets/street-prototype-lineup.png"
   },
   {
     "id": "track",
@@ -738,7 +738,7 @@
         }
       ]
     },
-    "lineupImage": "assets/track-prototype-lineup.svg"
+    "lineupImage": "assets/track-prototype-lineup.png"
   },
   {
     "id": "volterra",
@@ -901,7 +901,7 @@
         }
       ]
     },
-    "lineupImage": "assets/volterra-prototype-lineup.svg"
+    "lineupImage": "assets/volterra-prototype-lineup.png"
   },
   {
     "id": "zenith",
@@ -1064,6 +1064,6 @@
         }
       ]
     },
-    "lineupImage": "assets/zenith-prototype-lineup.svg"
+    "lineupImage": "assets/zenith-prototype-lineup.png"
   }
 ]
