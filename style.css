@@ -301,21 +301,30 @@ body.modal-open{overflow:hidden}
 .marquee{width:100vw;max-width:100vw;position:relative;left:50%;margin-left:-50vw}
 
 
-/* Responsive image-only manufacturer carousel inspired by Smart Carousel */
-.manufacturer-carousel{position:relative;max-width:1240px;margin:34px auto 0;padding:8px 58px 54px;overflow:hidden}
-.manufacturer-viewport{width:100%;overflow:hidden;position:relative;touch-action:pan-y}
-.gallery-grid{display:flex;align-items:stretch;gap:18px;width:100%;height:clamp(330px,36vw,470px);margin:0;padding:0;transition:transform .55s cubic-bezier(.22,.7,.25,1);will-change:transform}
-.gallery-grid .car-card{display:block;position:relative;flex:0 0 calc((100% - 36px)/3);height:100%;min-width:0;margin:0;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#080a0e;cursor:pointer;transform:none!important;opacity:1!important;filter:none!important;box-shadow:0 18px 44px rgba(0,0,0,.36);transition:border-color .25s,filter .25s,transform .25s}
-.gallery-grid .car-card:hover{border-color:var(--red);filter:brightness(1.08)!important;transform:translateY(-4px)!important}
+
+/* Center-focused manufacturer carousel: prominent center cover, subdued side covers */
+.manufacturer-carousel{position:relative;max-width:1240px;margin:34px auto 0;padding:8px 46px 54px;overflow:hidden}
+.manufacturer-viewport{width:100%;height:clamp(390px,42vw,520px);overflow:hidden;position:relative;touch-action:pan-y;perspective:1200px}
+.gallery-grid{display:block;position:relative;width:100%;height:100%;margin:0;padding:0;transform:none!important;will-change:auto}
+.gallery-grid .car-card{display:block;position:absolute;left:50%;top:50%;width:clamp(230px,31%,350px);height:100%;min-width:0;margin:0;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#080a0e;cursor:pointer;transform:translate(calc(-50% + var(--carousel-x,0px)),-50%) scale(var(--carousel-scale,.78));transform-origin:center;opacity:var(--carousel-opacity,.62);filter:brightness(var(--carousel-brightness,.58));box-shadow:0 20px 55px rgba(0,0,0,.45);transition:transform .65s cubic-bezier(.22,.7,.25,1),opacity .65s,filter .65s,border-color .3s;backface-visibility:hidden}
+.gallery-grid .car-card.is-center{border-color:rgba(255,255,255,.28);box-shadow:0 28px 75px rgba(0,0,0,.58)}
+.gallery-grid .car-card:hover{border-color:var(--red)}
 .gallery-grid .car-card[hidden]{display:none}
 .manufacturer-cover{display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}
+.manufacturer-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,8,.04) 25%,rgba(3,5,8,.25) 48%,rgba(3,5,8,.96) 100%);pointer-events:none}
+.manufacturer-cover-copy{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:28px 25px 25px;text-align:left;color:#fff;pointer-events:none}
+.manufacturer-cover-copy small{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase}
+.manufacturer-cover-copy strong{font:600 clamp(22px,2.2vw,30px)/1.05 Oswald, sans-serif;text-transform:uppercase;text-shadow:0 2px 12px #000}
+.manufacturer-cover-copy>span{font-size:12px;line-height:1.5;color:#d2d6de;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:100%}
+.manufacturer-cover-copy b{display:inline-flex;align-items:center;gap:15px;margin-top:6px;padding-bottom:7px;border-bottom:2px solid var(--red);font-size:10px;letter-spacing:1.2px;color:#fff}
+.manufacturer-cover-copy b i{font-size:16px;font-style:normal;color:var(--red)}
 .carousel-arrow{position:absolute;z-index:5;top:calc(50% - 27px);height:48px;width:42px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);background:rgba(8,10,14,.86);backdrop-filter:blur(8px);color:#fff;font-size:30px;line-height:1;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
 .carousel-prev{left:4px}.carousel-next{right:4px}
 .carousel-arrow:hover{background:var(--red);border-color:var(--red);transform:scale(1.06)}
 .carousel-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.carousel-pagination{position:absolute;left:58px;right:58px;bottom:18px;display:flex;justify-content:center;gap:8px}
+.carousel-pagination{position:absolute;left:46px;right:46px;bottom:18px;display:flex;justify-content:center;gap:8px}
 .carousel-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:#535963;cursor:pointer;transition:width .25s,background .25s}
 .carousel-dot[aria-current="true"]{width:25px;border-radius:8px;background:var(--red)}
-@media(max-width:1050px){.manufacturer-carousel{padding-inline:48px}.gallery-grid{height:420px;gap:14px}.gallery-grid .car-card{flex-basis:calc((100% - 14px)/2)}.carousel-pagination{left:48px;right:48px}}
-@media(max-width:600px){.manufacturer-carousel{margin-top:22px;padding:0 38px 48px}.gallery-grid{height:390px;gap:12px}.gallery-grid .car-card{flex-basis:100%}.carousel-arrow{top:calc(50% - 40px);width:34px;height:42px;font-size:25px}.carousel-prev{left:0}.carousel-next{right:0}.carousel-pagination{left:38px;right:38px;bottom:14px}}
-@media(prefers-reduced-motion:reduce){.gallery-grid,.gallery-grid .car-card,.carousel-dot{transition:none!important}}
+@media(max-width:800px){.manufacturer-carousel{padding-inline:36px}.manufacturer-viewport{height:450px}.gallery-grid .car-card{width:clamp(220px,42%,310px)}.manufacturer-cover-copy{padding:22px 18px}.manufacturer-cover-copy>span{-webkit-line-clamp:2}.carousel-pagination{left:36px;right:36px}}
+@media(max-width:600px){.manufacturer-carousel{margin-top:22px;padding:0 32px 48px}.manufacturer-viewport{height:410px}.gallery-grid .car-card{width:min(76%,290px)}.manufacturer-cover-copy{padding:20px 17px;gap:8px}.manufacturer-cover-copy strong{font-size:23px}.manufacturer-cover-copy>span{font-size:11px}.carousel-arrow{top:calc(50% - 40px);width:30px;height:42px;font-size:25px}.carousel-prev{left:0}.carousel-next{right:0}.carousel-pagination{left:32px;right:32px;bottom:14px}}
+@media(prefers-reduced-motion:reduce){.gallery-grid .car-card,.carousel-dot{transition:none!important}}
