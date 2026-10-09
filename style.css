@@ -271,3 +271,10 @@ footer a{color:#fff;text-decoration:none}footer a:hover{color:var(--red)}
 .manufacturer-models article>b{font-size:12px;color:#e5e7eb}
 body.modal-open{overflow:hidden}
 @media(max-width:800px){.manufacturer-modal-box{grid-template-columns:1fr}.manufacturer-modal-box .modal-img{position:relative;min-height:260px}.manufacturer-modal-box .modal-text{padding:28px 22px}.manufacturer-subgrid,.manufacturer-models{grid-template-columns:1fr}.manufacturer-modal-box .modal-text h2{font-size:36px}}
+
+/* Brand profile: use the company logo as the left visual */
+.manufacturer-logo-panel{background-color:#080a0e;background-image:url("assets/varex-logo.svg");background-repeat:no-repeat;background-position:center;background-size:min(76%,420px);min-height:100%;position:relative}
+.manufacturer-logo-panel:after{content:"VAREX AUTOMOTIVE • DRIVEN BY PERFORMANCE";position:absolute;left:24px;right:24px;bottom:26px;text-align:center;color:#aeb3bb;font-size:10px;letter-spacing:3px}
+.manufacturer-modal-box .modal-text{max-height:88vh;overflow-y:auto}
+.manufacturer-modal{overflow-y:auto}
+@media(max-width:800px){.manufacturer-logo-panel{min-height:250px;background-size:min(65%,300px)}.manufacturer-logo-panel:after{bottom:14px;font-size:8px}}
