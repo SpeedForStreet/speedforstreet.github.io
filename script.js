@@ -58,7 +58,6 @@ function renderSiteCars(list){
  const viewport=grid.closest('.manufacturer-viewport');
  const carousel=grid.closest('.manufacturer-carousel');
  let activeId=list[0]?.id||null;
- const visibleList=()=>list.filter(m=>{const f=$('.filter-btn.active')?.dataset.filter||'all';return f==='all'||m.category===f;});
  grid.innerHTML=[...list,...list].map((m,i)=>`<button type="button" class="car-card manufacturer-card${i>=list.length?' marquee-copy':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="Логотип ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
  const openManufacturer=d=>{
    if(!d||!modal)return;
@@ -85,8 +84,6 @@ function renderSiteCars(list){
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
    openManufacturer(list.find(x=>x.id===card.dataset.manufacturer));
  }));
- $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');grid.querySelectorAll('.manufacturer-card').forEach(card=>{card.hidden=!visibleList().some(m=>m.id===card.dataset.manufacturer);});});
- grid.querySelectorAll('.manufacturer-card').forEach(card=>{card.hidden=!visibleList().some(m=>m.id===card.dataset.manufacturer);});
 }
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
