@@ -371,3 +371,29 @@ body.modal-open{overflow:hidden}
 .manufacturer-carousel .manufacturer-card.is-center{
   box-shadow:none !important;
 }
+
+
+/* VAREX cover: full image, transparent background, 16:10, no zoom */
+.manufacturer-carousel .gallery-grid{
+  aspect-ratio:16 / 10 !important;
+  height:auto !important;
+}
+.manufacturer-carousel .manufacturer-card{
+  aspect-ratio:16 / 10 !important;
+  height:auto !important;
+  background:transparent !important;
+}
+.manufacturer-carousel .manufacturer-card .car-image{
+  background:transparent !important;
+}
+.manufacturer-carousel .manufacturer-card .car-image img{
+  object-fit:contain !important;
+  object-position:center !important;
+  background:transparent !important;
+  transform:none !important;
+  transition:none !important;
+}
+.manufacturer-carousel .manufacturer-card:hover .car-image img,
+.manufacturer-carousel .manufacturer-card.is-center:hover .car-image img{
+  transform:none !important;
+}
