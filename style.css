@@ -488,3 +488,13 @@ section.cars.section,
   padding-top:0 !important;
   padding-bottom:0 !important;
 }
+
+/* Regular manufacturer cards with logos only; no carousel */
+.manufacturer-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;margin-top:24px!important}
+.manufacturer-grid .manufacturer-card{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:160px;padding:0!important;transform:none!important;opacity:1!important;filter:none!important;pointer-events:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:hidden}
+.manufacturer-grid .manufacturer-card[hidden]{display:none!important}
+.manufacturer-grid .manufacturer-card-brand{height:180px;margin:0;display:flex;align-items:center;justify-content:center;padding:28px;background:transparent!important;border:0!important;box-shadow:none!important}
+.manufacturer-grid .manufacturer-card-brand img{display:block;width:min(80%,300px);height:100%;object-fit:contain;transition:none!important;transform:none!important}
+.manufacturer-grid .manufacturer-card:hover .manufacturer-card-brand img{transform:none!important}
+@media(max-width:1050px){.manufacturer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){.manufacturer-grid{grid-template-columns:1fr!important}.manufacturer-grid .manufacturer-card-brand{height:145px}}
