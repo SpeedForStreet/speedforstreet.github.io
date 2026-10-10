@@ -513,3 +513,11 @@ section.cars.section,
 @keyframes manufacturerTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.manufacturer-grid{animation:none!important;flex-wrap:wrap!important;width:100%}}
 @media(max-width:700px){.manufacturer-grid{gap:30px!important}.manufacturer-grid .manufacturer-card{flex-basis:170px!important;width:170px!important;min-width:170px;height:110px!important;min-height:110px!important}}
+
+
+/* Ticker cleanup: larger monochrome gray logos, no category filters */
+#cars .gallery-toolbar{display:none!important}
+.manufacturer-grid .manufacturer-card{flex-basis:270px!important;width:270px!important;min-width:270px!important;height:170px!important;min-height:170px!important}
+.manufacturer-grid .manufacturer-card-brand img{max-width:235px!important;filter:grayscale(1)!important;opacity:.78}
+.manufacturer-grid .manufacturer-card:hover .manufacturer-card-brand img{filter:grayscale(1)!important;opacity:1}
+@media(max-width:700px){.manufacturer-grid{gap:34px!important}.manufacturer-grid .manufacturer-card{flex-basis:210px!important;width:210px!important;min-width:210px!important;height:135px!important;min-height:135px!important}}
