@@ -243,50 +243,24 @@ const newsModalEl=$('#newsModal'); newsModalEl?.addEventListener('click',e=>{if(
 loadSiteData();
 
 
-// Site loading screen
+// Site loading screen — never block the site on large or missing images.
 (function(){
   const loader=document.getElementById('siteLoader');
   const percent=document.getElementById('loaderPercent');
   const status=document.getElementById('loaderStatus');
   if(!loader)return;
-  const staticAssets=['assets/hero-clean.jpg','assets/world-clean.jpg','assets/car-clean.jpg','assets/city-clean.jpg','assets/city-01.jpg','assets/street-01.jpg'];
-  const setProgress=(n,label)=>{if(percent)percent.textContent=Math.round(n)+'%';if(status&&label)status.firstChild.nodeValue=label;};
-  const preloadImage=src=>new Promise(resolve=>{
-    const img=new Image();
-    img.onload=img.onerror=()=>resolve();
-    img.src=src;
-  });
+  let finished=false;
   const hideLoader=()=>{
-    if(loader.classList.contains('done'))return;
-    setProgress(100,'ГОТОВО');
+    if(finished)return;
+    finished=true;
+    if(percent)percent.textContent='100%';
+    if(status)status.firstChild.nodeValue='ГОТОВО';
     loader.classList.add('done');
-    setTimeout(()=>loader.remove(),700);
+    window.setTimeout(()=>loader.remove(),250);
   };
-  const start=async()=>{
-    let imageUrls=[...staticAssets];
-    setProgress(5,'ЗАПУСК SPEEDFOR STREET');
-    try{
-      const [carsRes,newsRes]=await Promise.all([fetch('data/cars.json'),fetch('data/news.json')]);
-      setProgress(15,'ПОЛУЧЕНИЕ ДАННЫХ');
-      if(carsRes.ok){const data=await carsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
-      if(newsRes.ok){const data=await newsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
-    }catch(e){}
-    imageUrls=[...new Set(imageUrls)];
-    let loaded=0;
-    setProgress(20,'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
-    await Promise.all(imageUrls.map(async src=>{
-      await preloadImage(src);
-      loaded++;
-      setProgress(20+Math.round((loaded/imageUrls.length)*70),'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
-    }));
-    setProgress(94,'ПОДГОТОВКА САЙТА');
-    if(document.fonts&&document.fonts.ready)try{await document.fonts.ready}catch(e){}
-    setProgress(98,'ПОЧТИ ГОТОВО');
-    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-    hideLoader();
-  };
-  if(document.readyState==='complete')start();
-  else window.addEventListener('load',start,{once:true});
-  setTimeout(hideLoader,15000);
+  // Show the page promptly; images and 3D assets may continue loading in the background.
+  if(document.readyState==='complete')window.setTimeout(hideLoader,350);
+  else window.addEventListener('load',()=>window.setTimeout(hideLoader,350),{once:true});
+  // Failsafe for slow connections, failed assets, or blocked third-party resources.
+  window.setTimeout(hideLoader,2500);
 })();
-
