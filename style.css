@@ -332,3 +332,25 @@ body.modal-open{overflow:hidden}
   object-fit:cover;
   object-position:center;
 }
+
+
+/* Preserve the full original manufacturer cover ratio; never crop artwork */
+.manufacturer-carousel .gallery-grid{
+  height:auto;
+  aspect-ratio:16 / 9;
+}
+.manufacturer-carousel .manufacturer-card{
+  aspect-ratio:16 / 9;
+  height:auto;
+}
+.manufacturer-carousel .manufacturer-card .car-image img{
+  object-fit:contain;
+  object-position:center;
+  background:#080b10;
+}
+@media(max-width:700px){
+  .manufacturer-carousel .gallery-grid{
+    height:auto;
+    aspect-ratio:16 / 9;
+  }
+}
