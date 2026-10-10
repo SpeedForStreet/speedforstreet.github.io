@@ -59,7 +59,7 @@ function renderSiteCars(list){
  const carousel=grid.closest('.manufacturer-carousel');
  let activeId=list[0]?.id||null;
  const visibleList=()=>list.filter(m=>{const f=$('.filter-btn.active')?.dataset.filter||'all';return f==='all'||m.category===f;});
- grid.innerHTML=list.map(m=>`<button type="button" class="car-card manufacturer-card" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="Логотип ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
+ grid.innerHTML=[...list,...list].map((m,i)=>`<button type="button" class="car-card manufacturer-card${i>=list.length?' marquee-copy':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="Логотип ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
  const openManufacturer=d=>{
    if(!d||!modal)return;
    $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
