@@ -354,3 +354,9 @@ body.modal-open{overflow:hidden}
     aspect-ratio:16 / 9;
   }
 }
+
+
+/* Remove letterboxing: fill the card width while preserving full artwork */
+.manufacturer-carousel .manufacturer-card .car-image img{
+  object-fit:cover;
+}
