@@ -470,3 +470,21 @@ body.modal-open{overflow:hidden}
   padding-top:0 !important;
   padding-bottom:0 !important;
 }
+
+
+/* Actual fix: the cars section's large section padding caused the visible gap */
+section.cars.section,
+.cars.section{
+  padding-top:20px !important;
+}
+.cars.section .gallery-toolbar{
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+}
+.cars.section .manufacturer-carousel{
+  margin-top:0 !important;
+}
+.cars.section .manufacturer-viewport{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
