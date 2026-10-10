@@ -536,3 +536,17 @@ section.cars.section,
 #cars .manufacturer-grid{
   width:max-content!important;
 }
+
+
+/* Concept vehicle gallery */
+.concept-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:34px 0 0}
+.concept-car{min-width:0;background:#0b0e13;border:1px solid rgba(255,255,255,.09);overflow:hidden}
+.concept-car img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;filter:saturate(.72);transition:filter .25s,transform .35s}
+.concept-car:hover img{filter:saturate(1);transform:scale(1.025)}
+.concept-car>div{padding:20px}
+.concept-car span{font-size:10px;letter-spacing:.16em;color:#ff3447}
+.concept-car h3{font-size:19px;margin:9px 0}
+.concept-car p{font-size:13px;line-height:1.65;color:#aeb4bf;margin:0}
+.concept-disclaimer{font-size:12px;color:#9299a5;margin-top:12px}
+@media(max-width:800px){.concept-gallery{grid-template-columns:1fr 1fr}.concept-car:last-child{grid-column:1/-1}}
+@media(max-width:520px){.concept-gallery{grid-template-columns:1fr}.concept-car:last-child{grid-column:auto}.concept-car>div{padding:16px}}
