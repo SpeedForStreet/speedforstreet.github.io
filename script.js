@@ -55,46 +55,61 @@ async function loadSiteData(){
 function renderSiteCars(list){
  const grid=$('.gallery-grid');if(!grid)return;
  const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="${esc(m.fullName||m.title)} logo" loading="lazy"></div><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Концепт бренда ${esc(m.title)}" loading="lazy"></div><div class="card-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><h3>${esc(m.fullName||m.title)}</h3><p>${esc(m.desc||'')}</p><b>ИЗУЧИТЬ ИСТОРИЮ И МОДЕЛИ →</b></div></button>`).join('');
+ const viewport=grid.closest('.manufacturer-viewport');
+ const carousel=grid.closest('.manufacturer-carousel');
+ let activeId=list[0]?.id||null;
+ const visibleList=()=>list.filter(m=>{const f=$('.filter-btn.active')?.dataset.filter||'all';return f==='all'||m.category===f;});
+ grid.innerHTML=list.map(m=>`<button type="button" class="car-card manufacturer-card" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Обложка ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
+ const openManufacturer=d=>{
+   if(!d||!modal)return;
+   $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
+   $('#modalFounded').textContent=d.founded||'—';$('#modalFocus').textContent=d.focus||'—';$('#modalTune').textContent=d.philosophy||d.tagline||'—';
+   const left=$('#modalImg');left.style.backgroundImage=`url("${d.logo||'assets/varex-logo.svg'}")`;left.dataset.brandCaption=(d.fullName||d.title)+' • '+(d.tagline||'AUTOMOTIVE');left.classList.add('manufacturer-logo-panel');
+   const extra=$('#manufacturerExtra');
+   const section=(title,body)=>`<section class="manufacturer-detail-section"><h3>${title}</h3>${body}</section>`;
+   const cards=arr=>`<div class="manufacturer-subgrid">${(arr||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`;
+   extra.innerHTML=
+    section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${esc(h.year)}</b><div><strong>${esc(h.title)}</strong><p>${esc(h.text)}</p></div></article>`).join('')}</div>`)+
+    section('СТРУКТУРА КОНЦЕРНА',cards(d.divisions))+
+    section('МОДЕЛЬНЫЙ РЯД',`${d.lineupImage?'<img class="manufacturer-lineup-board" src="'+esc(d.lineupImage)+'" alt="Концепт-лист модельного ряда '+esc(d.fullName||d.title)+'">':''}<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${esc(x.series)}</small><h4>${esc(x.name)}</h4><b>${esc(x.spec)}</b><p>${esc(x.text)}</p></article>`).join('')}</div>`)+
+    section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',cards(d.technologies))+section('ФИРМЕННЫЙ СТИЛЬ',cards(d.brandIdentity))+section('ПРОИЗВОДСТВО И ИСПЫТАНИЯ',cards(d.production))+section('АВТОСПОРТ',cards(d.motorsport))+section(`${esc(d.title||d.fullName)} В МИРЕ SPEEDFORSTREET`,cards(d.world))+
+    section('РАЗРАБОТКА АВТОМОБИЛЯ',`<p>${esc(d.development?.description||'')}</p><div class="manufacturer-subgrid">${(d.development?.stages||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`);
+   const lineup=extra.querySelector('.manufacturer-lineup-board');
+   if(lineup){lineup.tabIndex=0;lineup.setAttribute('role','button');lineup.setAttribute('aria-label','Открыть изображение модельного ряда в большом масштабе');lineup.title='Нажмите, чтобы увеличить';
+    const openLineupZoom=()=>{const overlay=document.createElement('div');overlay.className='lineup-lightbox';overlay.innerHTML='<button type="button" class="lineup-lightbox-close" aria-label="Закрыть увеличенное изображение">×</button><img alt="'+(lineup.alt||'Модельный ряд производителя').replace(/"/g,'&quot;')+'" src="'+lineup.src+'"><div class="lineup-lightbox-hint">ESC или нажмите вне изображения, чтобы закрыть</div>';
+     const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};const onKey=e=>{if(e.key==='Escape')close();};overlay.addEventListener('click',e=>{if(e.target===overlay||e.target.closest('.lineup-lightbox-close'))close();});document.addEventListener('keydown',onKey);document.body.appendChild(overlay);};
+    lineup.addEventListener('click',openLineupZoom);lineup.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLineupZoom();}});
+   }
+   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
+ };
+ const renderPosition=()=>{
+   const filtered=visibleList();
+   if(!filtered.some(m=>m.id===activeId))activeId=filtered[0]?.id||null;
+   const idx=filtered.findIndex(m=>m.id===activeId);
+   grid.querySelectorAll('.manufacturer-card').forEach(card=>{
+     const i=filtered.findIndex(m=>m.id===card.dataset.manufacturer);
+     card.hidden=i<0;
+     card.classList.remove('is-center','is-side-left','is-side-right');
+     if(i<0||idx<0)return;
+     if(i===idx)card.classList.add('is-center');
+     else if(i===(idx-1+filtered.length)%filtered.length)card.classList.add('is-side-left');
+     else if(i===(idx+1)%filtered.length)card.classList.add('is-side-right');
+     else card.hidden=true;
+   });
+   const prev=carousel?.querySelector('.manufacturer-prev'),next=carousel?.querySelector('.manufacturer-next');
+   if(prev)prev.disabled=filtered.length<2;if(next)next.disabled=filtered.length<2;
+ };
+ const step=dir=>{const filtered=visibleList();if(!filtered.length)return;let i=filtered.findIndex(m=>m.id===activeId);activeId=filtered[(i+dir+filtered.length)%filtered.length].id;renderPosition();};
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
-  const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
-  $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
-  $('#modalFounded').textContent=d.founded||'—';$('#modalFocus').textContent=d.focus||'—';$('#modalTune').textContent=d.philosophy||d.tagline||'—';
-  const left=$('#modalImg');
-  left.style.backgroundImage=`url("${d.logo||'assets/varex-logo.svg'}")`;
-  left.dataset.brandCaption=(d.fullName||d.title)+' • '+(d.tagline||'AUTOMOTIVE');
-  left.classList.add('manufacturer-logo-panel');
-  const extra=$('#manufacturerExtra');
-  const section=(title,body)=>`<section class="manufacturer-detail-section"><h3>${title}</h3>${body}</section>`;
-  const cards=(arr)=>`<div class="manufacturer-subgrid">${(arr||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`;
-  extra.innerHTML=
-   section('ИСТОРИЯ БРЕНДА',`<div class="manufacturer-history">${(d.history||[]).map(h=>`<article><b>${esc(h.year)}</b><div><strong>${esc(h.title)}</strong><p>${esc(h.text)}</p></div></article>`).join('')}</div>`)+
-   section('СТРУКТУРА КОНЦЕРНА',cards(d.divisions))+
-   section('МОДЕЛЬНЫЙ РЯД',`${d.lineupImage?'<img class="manufacturer-lineup-board" src="'+esc(d.lineupImage)+'" alt="Концепт-лист модельного ряда '+esc(d.fullName||d.title)+'">':''}<div class="manufacturer-models">${(d.models||[]).map(x=>`<article><small>${esc(x.series)}</small><h4>${esc(x.name)}</h4><b>${esc(x.spec)}</b><p>${esc(x.text)}</p></article>`).join('')}</div>`)+
-   section('ФИРМЕННЫЕ ТЕХНОЛОГИИ',cards(d.technologies))+
-   section('ФИРМЕННЫЙ СТИЛЬ',cards(d.brandIdentity))+
-   section('ПРОИЗВОДСТВО И ИСПЫТАНИЯ',cards(d.production))+
-   section('АВТОСПОРТ',cards(d.motorsport))+
-   section(`${esc(d.title||d.fullName)} В МИРЕ SPEEDFORSTREET`,cards(d.world))+
-   section('РАЗРАБОТКА АВТОМОБИЛЯ',`<p>${esc(d.development?.description||'')}</p><div class="manufacturer-subgrid">${(d.development?.stages||[]).map(x=>`<article><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p></article>`).join('')}</div>`);
-  const lineup=extra.querySelector('.manufacturer-lineup-board');
-  if(lineup){
-   lineup.tabIndex=0;lineup.setAttribute('role','button');lineup.setAttribute('aria-label','Открыть изображение модельного ряда в большом масштабе');lineup.title='Нажмите, чтобы увеличить';
-   const openLineupZoom=()=>{
-    const overlay=document.createElement('div');overlay.className='lineup-lightbox';overlay.innerHTML='<button type="button" class="lineup-lightbox-close" aria-label="Закрыть увеличенное изображение">×</button><img alt="'+(lineup.alt||'Модельный ряд производителя').replace(/"/g,'&quot;')+'" src="'+lineup.src+'"><div class="lineup-lightbox-hint">ESC или нажмите вне изображения, чтобы закрыть</div>';
-    const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};
-    const onKey=e=>{if(e.key==='Escape')close();};
-    overlay.addEventListener('click',e=>{if(e.target===overlay||e.target.closest('.lineup-lightbox-close'))close();});
-    document.addEventListener('keydown',onKey);document.body.appendChild(overlay);
-   };
-   lineup.addEventListener('click',openLineupZoom);
-   lineup.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLineupZoom();}});
-  }
-  modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
+   if(card.classList.contains('is-side-left')){step(-1);return;}
+   if(card.classList.contains('is-side-right')){step(1);return;}
+   openManufacturer(list.find(x=>x.id===card.dataset.manufacturer));
  }));
- $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));});
+ carousel?.querySelector('.manufacturer-prev')?.addEventListener('click',()=>step(-1));
+ carousel?.querySelector('.manufacturer-next')?.addEventListener('click',()=>step(1));
+ $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeId=visibleList()[0]?.id||null;renderPosition();});
+ renderPosition();
 }
-
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
