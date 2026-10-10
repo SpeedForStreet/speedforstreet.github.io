@@ -456,3 +456,17 @@ body.modal-open{overflow:hidden}
   margin-top:0 !important;
   padding-top:0 !important;
 }
+
+
+/* Minimize the gap between the filter buttons and manufacturer carousel */
+.gallery-toolbar{
+  margin-bottom:0 !important;
+  padding-bottom:0 !important;
+}
+.manufacturer-carousel{
+  margin-top:0 !important;
+}
+.manufacturer-carousel .manufacturer-viewport{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
