@@ -2,7 +2,7 @@ const $ = (s,root=document)=>root.querySelector(s);
 const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
 
 // Smooth navigation
-$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const href=a.getAttribute('href');if(!href||href==='#')return;let target=null;try{target=$(href)}catch(err){return}if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});$('.mobile-menu')?.classList.remove('open');}}));
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=$(a.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});$('.mobile-menu')?.classList.remove('open');}}));
 
 // Mobile menu
 const menuBtn=$('.menu-btn'), mobileMenu=$('.mobile-menu');
@@ -55,7 +55,7 @@ async function loadSiteData(){
 function renderSiteCars(list){
  const grid=$('.gallery-grid');if(!grid)return;
  const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть историю бренда ${esc(m.fullName||m.title)}"><img class="manufacturer-cover" src="${esc(m.image||'assets/hero-clean.jpg')}" alt="${esc(m.fullName||m.title)} — обложка бренда" loading="lazy"><span class="manufacturer-cover-shade"></span><span class="manufacturer-cover-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><strong>${esc(m.fullName||m.title)}</strong><span>${esc(m.desc||'')}</span><b>ОТКРЫТЬ ИСТОРИЮ <i>↗</i></b></span></button>`).join('');
+ grid.innerHTML=list.map((m,i)=>`<button type="button" class="car-card manufacturer-card ${i===0?'featured':''}" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="${esc(m.fullName||m.title)} logo" loading="lazy"></div><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Концепт бренда ${esc(m.title)}" loading="lazy"></div><div class="card-copy"><small>${esc(m.kicker||'AUTOMOTIVE BRAND')}</small><h3>${esc(m.fullName||m.title)}</h3><p>${esc(m.desc||'')}</p><b>ИЗУЧИТЬ ИСТОРИЮ И МОДЕЛИ →</b></div></button>`).join('');
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
   const d=list.find(x=>x.id===card.dataset.manufacturer);if(!d||!modal)return;
   $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
@@ -92,108 +92,18 @@ function renderSiteCars(list){
   }
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
  }));
- $('.filter-btn').forEach(btn=>btn.onclick=()=>{$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));refreshManufacturerCarousel(true);});
- refreshManufacturerCarousel(true);
+ $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;grid.querySelectorAll('.manufacturer-card').forEach(c=>c.hidden=!(f==='all'||c.dataset.category===f));});
 }
-
-
-// Center-focused cover carousel: center card is prominent, side cards are dimmed.
-let manufacturerCarouselTimer=null;
-let manufacturerRingIndex=0;
-let manufacturerDragStart=null;
-let manufacturerLastDrag=0;
-let manufacturerDragged=false;
-function visibleManufacturerCards(){
- const track=$('.gallery-grid');
- return track?[...track.querySelectorAll('.manufacturer-card')].filter(card=>!card.hidden):[];
-}
-function refreshManufacturerCarousel(reset=false){
- const track=$('.gallery-grid'),root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport');
- if(!track||!root||!viewport)return;
- const cards=visibleManufacturerCards();
- if(reset)manufacturerRingIndex=0;
- if(cards.length)manufacturerRingIndex=((manufacturerRingIndex%cards.length)+cards.length)%cards.length;
- const width=viewport.clientWidth;
- const cardWidth=Math.min(350,Math.max(230,width*.31));
- const step=cardWidth*.82;
- cards.forEach((card,i)=>{
-  let offset=i-manufacturerRingIndex;
-  const count=cards.length;
-  if(offset>count/2)offset-=count;
-  if(offset< -count/2)offset+=count;
-  const distance=Math.abs(offset);
-  const sideStep=cardWidth*.82;
-  card.style.setProperty('--carousel-x',(offset*sideStep)+'px');
-  card.style.setProperty('--carousel-scale',distance===0?'1':distance===1?'.70':distance===2?'.54':'.42');
-  card.style.setProperty('--carousel-opacity',distance===0?'1':distance===1?'.58':distance===2?'.28':'.08');
-  card.style.setProperty('--carousel-brightness',distance===0?'1':distance===1?'.55':distance===2?'.34':'.2');
-  card.style.zIndex=String(100-distance);
-  card.classList.toggle('is-center',distance===0);
-  card.setAttribute('aria-current',distance===0?'true':'false');
- });
- const prev=$('.carousel-prev',root),next=$('.carousel-next',root);
- if(prev)prev.disabled=cards.length<2;
- if(next)next.disabled=cards.length<2;
- let dots=$('.carousel-pagination',root);
- if(!dots){dots=document.createElement('div');dots.className='carousel-pagination';dots.setAttribute('aria-label','Позиция карусели');root.appendChild(dots);}
- if(dots.children.length!==cards.length){
-  dots.innerHTML=cards.map((_,i)=>'<button type="button" class="carousel-dot" aria-label="Показать производителя '+(i+1)+'"></button>').join('');
-  [...dots.children].forEach((dot,i)=>dot.addEventListener('click',()=>{manufacturerRingIndex=i;refreshManufacturerCarousel();}));
- }
- [...dots.children].forEach((dot,i)=>dot.setAttribute('aria-current',i===manufacturerRingIndex?'true':'false'));
- dots.hidden=cards.length<2;
-}
-function moveManufacturerCarousel(direction=1){
- const cards=visibleManufacturerCards();
- if(cards.length<2)return;
- manufacturerRingIndex=(manufacturerRingIndex+direction+cards.length)%cards.length;
- refreshManufacturerCarousel(false);
-}
-function startManufacturerAutoplay(){
- if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
- if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  manufacturerCarouselTimer=setInterval(()=>moveManufacturerCarousel(1),4200);
-}
-function initManufacturerCarousel(){
- const root=$('.manufacturer-carousel'),viewport=$('.manufacturer-viewport'),track=$('.gallery-grid');
- if(!root||!viewport||!track)return;
- $('.carousel-prev',root)?.addEventListener('click',()=>moveManufacturerCarousel(-1));
- $('.carousel-next',root)?.addEventListener('click',()=>moveManufacturerCarousel(1));
- viewport.addEventListener('pointerdown',e=>{
-  manufacturerDragStart={x:e.clientX,y:e.clientY,id:e.pointerId};
-  manufacturerLastDrag=0;manufacturerDragged=false;
-  if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);
- });
- viewport.addEventListener('pointermove',e=>{
-  if(!manufacturerDragStart||manufacturerDragStart.id!==e.pointerId)return;
-  const dx=e.clientX-manufacturerDragStart.x;
-  if(Math.abs(dx)>18&&Math.abs(dx)>Math.abs(e.clientY-manufacturerDragStart.y)){manufacturerLastDrag=dx;manufacturerDragged=true;}
- });
- const endDrag=e=>{
-  if(!manufacturerDragStart)return;
-  if(manufacturerDragged){if(e.cancelable)e.preventDefault();moveManufacturerCarousel(manufacturerLastDrag<0?1:-1);setTimeout(()=>{manufacturerDragged=false;},0);}
-  manufacturerDragStart=null;manufacturerLastDrag=0;startManufacturerAutoplay();
- };
- viewport.addEventListener('pointerup',endDrag);viewport.addEventListener('pointercancel',endDrag);
- track.addEventListener('click',e=>{if(manufacturerDragged){e.preventDefault();e.stopPropagation();}},true);
- viewport.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();moveManufacturerCarousel(e.deltaX>0?1:-1);}},{passive:false});
- root.addEventListener('mouseenter',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
- root.addEventListener('mouseleave',startManufacturerAutoplay);
- root.addEventListener('focusin',()=>{if(manufacturerCarouselTimer)clearInterval(manufacturerCarouselTimer);});
- root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))startManufacturerAutoplay();});
- window.addEventListener('resize',()=>refreshManufacturerCarousel(false));
- refreshManufacturerCarousel(true);startManufacturerAutoplay();
-}
-initManufacturerCarousel();
 
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
   list=list.filter(n=>n.published!==false);
   grid.innerHTML=list.map((n,i)=>`<article class="news-card ${i===0?'featured-news':''}" data-news-id="${n.id}"><div class="news-image" style="background-image:url('${n.image||''}')"></div><div class="news-body"><span>${n.date} • ${n.tag}</span><h3>${n.title}</h3><div class="news-short">${n.shortDescription||n.text||''}</div><a href="#" class="news-read-more" data-news-id="${n.id}">ЧИТАТЬ ДАЛЬШЕ →</a></div></article>`).join('');
   grid.querySelectorAll('.news-card').forEach(card=>{
-    const open=()=>{const item=list.find(n=>String(n.id)===card.dataset.newsId);if(item)openNewsModal(item);};
-    card.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault();open();});
-    card.querySelector('.news-read-more')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();open();});
+    card.addEventListener('click',e=>{
+      if(e.target.closest('a')){e.preventDefault();}
+      const item=list.find(n=>n.id===card.dataset.newsId); if(item)openNewsModal(item);
+    });
   });
 }
 function openNewsModal(n){
@@ -205,12 +115,11 @@ function openNewsModal(n){
   $('#newsModalImg').style.backgroundImage=n.image?"url('"+n.image+"')":'none';
   $('#newsModal').classList.add('open');
   $('#newsModal').setAttribute('aria-hidden','false');
-  document.body.classList.add('modal-open');
   $('#newsModal').scrollTop=0;
   const box=$('.news-modal-box'); if(box)box.scrollIntoView({block:'start',behavior:'auto'});
   updateNewsReactions(n.id);
 }
-function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');}
+function closeNewsModal(){const m=$('#newsModal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true');}
 function reactionKey(id){return 'ssf_news_reactions_'+id}
 function getNewsReactions(id){try{return JSON.parse(localStorage.getItem(reactionKey(id))||'{"like":0,"dislike":0,"vote":""}')}catch(e){return {like:0,dislike:0,vote:''}}}
 function updateNewsReactions(id){
@@ -243,24 +152,50 @@ const newsModalEl=$('#newsModal'); newsModalEl?.addEventListener('click',e=>{if(
 loadSiteData();
 
 
-// Site loading screen — never block the site on large or missing images.
+// Site loading screen
 (function(){
   const loader=document.getElementById('siteLoader');
   const percent=document.getElementById('loaderPercent');
   const status=document.getElementById('loaderStatus');
   if(!loader)return;
-  let finished=false;
+  const staticAssets=['assets/hero-clean.jpg','assets/world-clean.jpg','assets/car-clean.jpg','assets/city-clean.jpg','assets/city-01.jpg','assets/street-01.jpg'];
+  const setProgress=(n,label)=>{if(percent)percent.textContent=Math.round(n)+'%';if(status&&label)status.firstChild.nodeValue=label;};
+  const preloadImage=src=>new Promise(resolve=>{
+    const img=new Image();
+    img.onload=img.onerror=()=>resolve();
+    img.src=src;
+  });
   const hideLoader=()=>{
-    if(finished)return;
-    finished=true;
-    if(percent)percent.textContent='100%';
-    if(status)status.firstChild.nodeValue='ГОТОВО';
+    if(loader.classList.contains('done'))return;
+    setProgress(100,'ГОТОВО');
     loader.classList.add('done');
-    window.setTimeout(()=>loader.remove(),250);
+    setTimeout(()=>loader.remove(),700);
   };
-  // Show the page promptly; images and 3D assets may continue loading in the background.
-  if(document.readyState==='complete')window.setTimeout(hideLoader,350);
-  else window.addEventListener('load',()=>window.setTimeout(hideLoader,350),{once:true});
-  // Failsafe for slow connections, failed assets, or blocked third-party resources.
-  window.setTimeout(hideLoader,2500);
+  const start=async()=>{
+    let imageUrls=[...staticAssets];
+    setProgress(5,'ЗАПУСК SPEEDFOR STREET');
+    try{
+      const [carsRes,newsRes]=await Promise.all([fetch('data/cars.json'),fetch('data/news.json')]);
+      setProgress(15,'ПОЛУЧЕНИЕ ДАННЫХ');
+      if(carsRes.ok){const data=await carsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
+      if(newsRes.ok){const data=await newsRes.json();data.forEach(x=>x.image&&imageUrls.push(x.image));}
+    }catch(e){}
+    imageUrls=[...new Set(imageUrls)];
+    let loaded=0;
+    setProgress(20,'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
+    await Promise.all(imageUrls.map(async src=>{
+      await preloadImage(src);
+      loaded++;
+      setProgress(20+Math.round((loaded/imageUrls.length)*70),'ЗАГРУЗКА ИЗОБРАЖЕНИЙ');
+    }));
+    setProgress(94,'ПОДГОТОВКА САЙТА');
+    if(document.fonts&&document.fonts.ready)try{await document.fonts.ready}catch(e){}
+    setProgress(98,'ПОЧТИ ГОТОВО');
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    hideLoader();
+  };
+  if(document.readyState==='complete')start();
+  else window.addEventListener('load',start,{once:true});
+  setTimeout(hideLoader,15000);
 })();
+
