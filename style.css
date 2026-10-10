@@ -441,3 +441,18 @@ body.modal-open{overflow:hidden}
   border:0 !important;
   box-shadow:none !important;
 }
+
+
+/* Keep manufacturer filter buttons close to the carousel cards */
+#cars, .cars-section, .manufacturers-section, .manufacturer-section{
+  padding-bottom:0 !important;
+  margin-bottom:0 !important;
+}
+.manufacturer-filters, .car-filters, .category-filters, .filter-buttons{
+  margin-bottom:0 !important;
+  padding-bottom:0 !important;
+}
+.manufacturer-carousel{
+  margin-top:0 !important;
+  padding-top:0 !important;
+}
