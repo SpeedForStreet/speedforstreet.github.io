@@ -59,7 +59,7 @@ function renderSiteCars(list){
  const carousel=grid.closest('.manufacturer-carousel');
  let activeId=list[0]?.id||null;
  const visibleList=()=>list.filter(m=>{const f=$('.filter-btn.active')?.dataset.filter||'all';return f==='all'||m.category===f;});
- grid.innerHTML=list.map(m=>`<button type="button" class="car-card manufacturer-card" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="car-image"><img src="${esc(m.image||'assets/hero-clean.jpg')}" alt="Обложка ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
+ grid.innerHTML=list.map(m=>`<button type="button" class="car-card manufacturer-card" data-manufacturer="${esc(m.id)}" data-category="${esc(m.category)}" aria-label="Открыть производителя ${esc(m.title)}"><div class="manufacturer-card-brand"><img src="${esc(m.logo||'assets/varex-logo.svg')}" alt="Логотип ${esc(m.fullName||m.title)}" loading="lazy"></div></button>`).join('');
  const openManufacturer=d=>{
    if(!d||!modal)return;
    $('#modalKicker').textContent=d.kicker||'AUTOMOTIVE BRAND';$('#modalTitle').textContent=d.fullName||d.title;$('#modalDesc').textContent=d.desc||'';
@@ -82,33 +82,11 @@ function renderSiteCars(list){
    }
    modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-box')?.scrollTo(0,0);
  };
- const renderPosition=()=>{
-   const filtered=visibleList();
-   if(!filtered.some(m=>m.id===activeId))activeId=filtered[0]?.id||null;
-   const idx=filtered.findIndex(m=>m.id===activeId);
-   grid.querySelectorAll('.manufacturer-card').forEach(card=>{
-     const i=filtered.findIndex(m=>m.id===card.dataset.manufacturer);
-     card.hidden=i<0;
-     card.classList.remove('is-center','is-side-left','is-side-right');
-     if(i<0||idx<0)return;
-     if(i===idx)card.classList.add('is-center');
-     else if(i===(idx-1+filtered.length)%filtered.length)card.classList.add('is-side-left');
-     else if(i===(idx+1)%filtered.length)card.classList.add('is-side-right');
-     else card.hidden=true;
-   });
-   const prev=carousel?.querySelector('.manufacturer-prev'),next=carousel?.querySelector('.manufacturer-next');
-   if(prev)prev.disabled=filtered.length<2;if(next)next.disabled=filtered.length<2;
- };
- const step=dir=>{const filtered=visibleList();if(!filtered.length)return;let i=filtered.findIndex(m=>m.id===activeId);activeId=filtered[(i+dir+filtered.length)%filtered.length].id;renderPosition();};
  grid.querySelectorAll('.manufacturer-card').forEach(card=>card.addEventListener('click',()=>{
-   if(card.classList.contains('is-side-left')){step(-1);return;}
-   if(card.classList.contains('is-side-right')){step(1);return;}
    openManufacturer(list.find(x=>x.id===card.dataset.manufacturer));
  }));
- carousel?.querySelector('.manufacturer-prev')?.addEventListener('click',()=>step(-1));
- carousel?.querySelector('.manufacturer-next')?.addEventListener('click',()=>step(1));
- $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeId=visibleList()[0]?.id||null;renderPosition();});
- renderPosition();
+ $$('.filter-btn').forEach(btn=>btn.onclick=()=>{$$('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');grid.querySelectorAll('.manufacturer-card').forEach(card=>{card.hidden=!visibleList().some(m=>m.id===card.dataset.manufacturer);});});
+ grid.querySelectorAll('.manufacturer-card').forEach(card=>{card.hidden=!visibleList().some(m=>m.id===card.dataset.manufacturer);});
 }
 function renderSiteNews(list){
   const grid=$('.news-grid'); if(!grid)return;
