@@ -498,3 +498,18 @@ section.cars.section,
 .manufacturer-grid .manufacturer-card:hover .manufacturer-card-brand img{transform:none!important}
 @media(max-width:1050px){.manufacturer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:700px){.manufacturer-grid{grid-template-columns:1fr!important}.manufacturer-grid .manufacturer-card-brand{height:145px}}
+
+
+/* Manufacturer logos in a continuously moving ticker */
+.manufacturer-marquee{width:100%;overflow:hidden;position:relative;margin-top:24px}
+.manufacturer-grid{display:flex!important;flex-wrap:nowrap!important;align-items:center;gap:54px!important;width:max-content;max-width:none!important;margin:0!important;animation:manufacturerTicker 32s linear infinite}
+.manufacturer-grid:hover{animation-play-state:paused}
+.manufacturer-grid .manufacturer-card{display:flex!important;flex:0 0 220px!important;width:220px!important;min-width:220px;height:140px!important;min-height:140px!important;align-items:center;justify-content:center;position:relative!important;inset:auto!important;opacity:1!important;filter:none!important;transform:none!important;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+.manufacturer-grid .manufacturer-card[hidden]{display:none!important}
+.manufacturer-grid .manufacturer-card-brand{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:20px;background:transparent!important;border:0!important;box-shadow:none!important}
+.manufacturer-grid .manufacturer-card-brand img{display:block;width:100%;height:100%;max-width:190px;object-fit:contain;transform:none!important;transition:none!important}
+.manufacturer-grid .manufacturer-card:hover .manufacturer-card-brand img{transform:none!important}
+.manufacturer-grid .marquee-copy{pointer-events:auto}
+@keyframes manufacturerTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.manufacturer-grid{animation:none!important;flex-wrap:wrap!important;width:100%}}
+@media(max-width:700px){.manufacturer-grid{gap:30px!important}.manufacturer-grid .manufacturer-card{flex-basis:170px!important;width:170px!important;min-width:170px;height:110px!important;min-height:110px!important}}
