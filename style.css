@@ -423,3 +423,21 @@ body.modal-open{overflow:hidden}
 .manufacturer-carousel .manufacturer-card.is-center:hover .car-image img{
   transform:none !important;
 }
+
+
+/* Carousel arrows: no button background or border */
+.manufacturer-carousel .manufacturer-arrow,
+.manufacturer-carousel .manufacturer-prev,
+.manufacturer-carousel .manufacturer-next{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  outline:0;
+}
+.manufacturer-carousel .manufacturer-arrow:hover,
+.manufacturer-carousel .manufacturer-arrow:focus,
+.manufacturer-carousel .manufacturer-arrow:active{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
