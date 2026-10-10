@@ -360,3 +360,14 @@ body.modal-open{overflow:hidden}
 .manufacturer-carousel .manufacturer-card .car-image img{
   object-fit:cover;
 }
+
+
+/* Remove the visible frame/border around manufacturer carousel cards */
+.manufacturer-carousel .manufacturer-card{
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none;
+}
+.manufacturer-carousel .manufacturer-card.is-center{
+  box-shadow:none !important;
+}
